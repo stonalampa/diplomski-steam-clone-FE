@@ -1,1 +1,0 @@
-# diplomski-loyalty-app-FE
