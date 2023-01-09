@@ -1,0 +1,20 @@
+3 flow-a
+
+0. FRONTPAGE -> ima login/register i jezik da menja i nekolicina igara
+
+1. ADMIN:
+ 1.1 login page admina
+ 1.2 admin panel - odabir users tab ili games tab
+ 1.3 users tab - svi useri, add, delete, update
+ 1.4 games tab - sve igre, add, delete, update
+
+2. LOGIN:
+ 2.1 Login page
+ 2.2 Forward na front page -> ima 4 taba: library, wishlist, browse all games, profile CRUD
+ 2.3 Open whole game -> reviews
+ 2.4 Buying game odradi mock
+ 2.5 Download game odradi mock
+
+3. REGISTER:
+ 3.1 Register page
+ 3.2 Ceka confirm emaila i onda redirekcija na 2.2 -> sve ostalo isto
