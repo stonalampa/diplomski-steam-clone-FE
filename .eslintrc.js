@@ -23,6 +23,7 @@ module.exports = {
         "prettier"
     ],
     "rules": {
+        "react/react-in-jsx-scope": "off"
     },
     "settings": {
         "import/resolver": {

@@ -1,26 +1,30 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { LandingPage } from './Components/UserComponents/LandingPage';
+import { SignIn } from './Components/UserComponents/SignIn';
+import { SignUp } from './Components/UserComponents/SignUp';
 
 function App() {
   return (
     <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          {/* User routes */}
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/signIn' element={<SignIn />} />
+          <Route path='/signUp' element={<SignUp />} />
+          <Route path='/user' element={<SignUp />} />
+          {/* Dodaj ovde sad jos za opcije */}
+
+          {/* Admin routes */}
+          <Route path='/admin/' element={<SignUp />} />
+          <Route path='/admin/login' element={<SignUp />} />
+          <Route path='/admin/users' element={<SignUp />} />
+          <Route path='/admin/users' element={<SignUp />} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
