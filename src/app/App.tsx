@@ -1,8 +1,8 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { LandingPage } from './Components/UserComponents/LandingPage';
-import { SignIn } from './Components/UserComponents/SignIn';
-import { SignUp } from './Components/UserComponents/SignUp';
+import { LandingPage } from '../components/UserComponents/LandingPage';
+import { SignIn } from '../components/UserComponents/SignIn';
+import { SignUp } from '../components/UserComponents/SignUp';
 
 function App() {
   return (

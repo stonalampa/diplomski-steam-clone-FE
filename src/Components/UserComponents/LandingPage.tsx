@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
-import { GetGames } from '../../Providers/GamesProvider';
-// import axios from "axios"
+import { GetGames } from '../../providers/GamesProvider';
+
 export const LandingPage = () => {
   return (
     <div>
