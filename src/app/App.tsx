@@ -3,10 +3,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LandingPage } from '../components/UserComponents/LandingPage';
 import { SignIn } from '../components/UserComponents/SignIn';
 import { SignUp } from '../components/UserComponents/SignUp';
+import { Helmet } from 'react-helmet';
 
 function App() {
   return (
     <div className='App'>
+      <Helmet>
+        <title>Steam clone</title>
+        <meta name='description' content='Steam clone school project.' />
+      </Helmet>
       <BrowserRouter>
         <Routes>
           {/* User routes */}
