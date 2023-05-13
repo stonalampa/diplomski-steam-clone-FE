@@ -13,6 +13,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setJwtToken: (state, action) => {
+      console.log('EVO GA', state, action);
       state.jwtToken = action.payload;
     },
   },

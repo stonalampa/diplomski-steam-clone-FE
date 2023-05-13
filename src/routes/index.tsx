@@ -6,8 +6,9 @@ import { AdminHome } from '../components/AdminComponents/AdminHome';
 import { AdminGames } from '../components/AdminComponents/AdminGames';
 import AdminLogin from '../components/AdminComponents/AdminLogin';
 import Login from '../components/UserComponents/Login';
-import Register from '../components/UserComponents/Register';
+
 import AuthGuard from '../components/AuthComponents/AuthGuard';
+import { Register } from '../components/UserComponents/Register';
 
 export default function Router() {
   return useRoutes([

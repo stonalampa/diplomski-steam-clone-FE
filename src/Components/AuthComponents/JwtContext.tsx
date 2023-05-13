@@ -86,7 +86,6 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
 export type LoginParams = {
   email: string;
   password: string;
-  afterSubmit?: string;
 };
 export type JWTContextType = {
   method: string;
@@ -95,9 +94,6 @@ export type JWTContextType = {
   user: AuthUserType;
   login: (params: LoginParams) => Promise<void>;
   logout: () => void;
-  loginWithGoogle?: () => void;
-  loginWithMicrosoft?: () => void;
-  loginWithJwt?: (jwt: string) => void;
 };
 export const AuthContext = createContext<JWTContextType | null>(null);
 
@@ -127,7 +123,7 @@ export const { useUserLoginMutation, useAdminLoginMutation } = authenticationApi
 export function AuthProvider({ children }: AuthProviderProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const storageAvailable = localStorageAvailable();
-  const [loginLocal] = useUserLoginMutation();
+  const [loginLocal] = useAdminLoginMutation();
 
   const initialize = useCallback(async () => {
     try {
@@ -171,15 +167,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // LOGIN
   const login = useCallback(async (params: LoginParams) => {
     const loginResult: IObject = await loginLocal(params);
+    console.log('🚀 ~ file: JwtContext.tsx:170 ~ login ~ loginResult:', loginResult);
     if (loginResult?.error) {
       throw new Error(loginResult?.error?.data?.message);
     }
 
-    const { accessToken } = loginResult.data;
-    loginWithJwt(accessToken);
+    loginWithJwt(loginResult.data.token);
   }, []);
 
   const loginWithJwt = useCallback(async (accessToken: string) => {
+    console.log('🚀 ~ file: JwtContext.tsx:180 ~ loginWithJwt ~ accessToken:', accessToken);
     const user = {};
     setSession(accessToken);
 
