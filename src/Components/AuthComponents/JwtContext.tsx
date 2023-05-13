@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useCallback, useMemo, useContext } from 'react';
+import { createContext, useEffect, useReducer, useCallback, useMemo } from 'react';
 import { isValidToken, setSession } from './utils';
 import { authenticationApi } from '../../providers/AuthenticationProvider';
 import { IObject } from '../Common/Types';

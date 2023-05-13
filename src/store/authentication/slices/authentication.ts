@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { authenticationApi } from '../../../providers/AuthenticationProvider';
 
 export interface AuthenticationState {
   jwtToken: string | undefined;
