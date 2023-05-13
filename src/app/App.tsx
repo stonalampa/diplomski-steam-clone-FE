@@ -1,34 +1,43 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { LandingPage } from '../components/UserComponents/LandingPage';
-import { SignIn } from '../components/UserComponents/SignIn';
-import { SignUp } from '../components/UserComponents/SignUp';
+import { BrowserRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-
-function App() {
+import Router from '../routes';
+import { AuthProvider } from '../components/AuthComponents/JwtContext';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import { Provider as ReduxProvider } from 'react-redux';
+import { createContext } from 'react';
+import { store } from './store';
+import { persistor } from '../store/store';
+export type AppContextType = {
+  isInIframe: boolean;
+  iframeData?: {
+    jwtToken: string;
+    lastLocaleUsedAdmin: string;
+    tenantId: number;
+  };
+  hideLayout: boolean;
+};
+export const AppContext = createContext<AppContextType>({
+  isInIframe: false,
+  hideLayout: false,
+});
+function App(appContext: AppContextType) {
   return (
-    <div className='App'>
-      <Helmet>
-        <title>Steam clone</title>
-        <meta name='description' content='Steam clone school project.' />
-      </Helmet>
-      <BrowserRouter>
-        <Routes>
-          {/* User routes */}
-          <Route path='/' element={<LandingPage />} />
-          <Route path='/signIn' element={<SignIn />} />
-          <Route path='/signUp' element={<SignUp />} />
-          <Route path='/user' element={<SignUp />} />
-          {/* Dodaj ovde sad jos za opcije */}
-
-          {/* Admin routes */}
-          <Route path='/admin/' element={<SignUp />} />
-          <Route path='/admin/login' element={<SignUp />} />
-          <Route path='/admin/users' element={<SignUp />} />
-          <Route path='/admin/users' element={<SignUp />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <AppContext.Provider value={appContext}>
+      <ReduxProvider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <AuthProvider>
+            <Helmet>
+              <title>Steam clone</title>
+              <meta name='description' content='Steam clone school project.' />
+            </Helmet>
+            <BrowserRouter>
+              <Router />
+            </BrowserRouter>
+          </AuthProvider>
+        </PersistGate>
+      </ReduxProvider>
+    </AppContext.Provider>
   );
 }
 
