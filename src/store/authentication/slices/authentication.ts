@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface AuthenticationState {
   jwtToken: string | undefined;
+  isAdmin: boolean | undefined;
 }
 
 const initialState: AuthenticationState = {
   jwtToken: '',
+  isAdmin: false,
 };
 
 export const slice = createSlice({
@@ -13,12 +15,14 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setJwtToken: (state, action) => {
-      console.log('EVO GA', state, action);
       state.jwtToken = action.payload;
+    },
+    setIsAdmin: (state, action) => {
+      state.isAdmin = action.payload;
     },
   },
 });
 
-export const { setJwtToken } = slice.actions;
+export const { setJwtToken, setIsAdmin } = slice.actions;
 
 export default slice.reducer;

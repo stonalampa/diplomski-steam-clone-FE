@@ -1,3 +1,7 @@
 export function AdminHome() {
-  return <></>;
+  return (
+    <>
+      <div>TEST home</div>
+    </>
+  );
 }

@@ -16,7 +16,7 @@ export default function Router() {
       path: '/admin',
       element: (
         <AuthGuard>
-          <AdminLogin></AdminLogin>
+          <AdminHome />
         </AuthGuard>
       ),
       children: [
@@ -31,7 +31,7 @@ export default function Router() {
       path: '/',
       element: (
         <AuthGuard>
-          <Login></Login>
+          <Home />
         </AuthGuard>
       ),
       children: [

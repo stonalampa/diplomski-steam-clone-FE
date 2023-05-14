@@ -1,8 +1,6 @@
-// routes
+import { ValidToken } from './AuthTypes';
 
-// ----------------------------------------------------------------------
-
-function jwtDecode(token: string) {
+export const jwtDecode = (token: string) => {
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(
@@ -14,23 +12,19 @@ function jwtDecode(token: string) {
   );
 
   return JSON.parse(jsonPayload);
-}
+};
 
-// ----------------------------------------------------------------------
-
-export const isValidToken = (accessToken: string) => {
+export const isValidToken = (accessToken: string | null): boolean | ValidToken => {
   if (!accessToken) {
     return false;
   }
-
   const decoded = jwtDecode(accessToken);
-
   const currentTime = Date.now() / 1000;
-
-  return decoded.exp > currentTime;
+  if (decoded.exp < currentTime) {
+    return false;
+  }
+  return { isExpired: false, isAdmin: decoded.isAdmin };
 };
-
-// ----------------------------------------------------------------------
 
 export const tokenExpired = (exp: number) => {
   // eslint-disable-next-line prefer-const
@@ -53,10 +47,7 @@ export const tokenExpired = (exp: number) => {
   }, timeLeft);
 };
 
-// ----------------------------------------------------------------------
-
 export const setSession = (accessToken: string | null) => {
-  console.log('XD', accessToken);
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken);
 

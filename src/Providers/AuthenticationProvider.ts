@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BackendApi } from '../helpers/BackendApi';
-import { IObject } from '../components/Common/Types';
-import { LoginParams } from '../components/AuthComponents/JwtContext';
+import { IObject } from '../components/Common/CommonTypes';
+import { LoginParams } from '../components/AuthComponents/AuthTypes';
 
 export const AUTHENTICATION_API_REDUCER_KEY = 'authenticationApi';
 export const authenticationApi = createApi({

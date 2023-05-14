@@ -1,17 +1,16 @@
-import { useState, ReactNode } from 'react';
+import { useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from './useAuthContext';
 import LoadingScreen from '../Common/LoadingScreen';
 import Login from '../UserComponents/Login';
 import AdminLogin from '../AdminComponents/AdminLogin';
-
-type AuthGuardProps = {
-  children: ReactNode;
-};
+import { AuthGuardProps } from './AuthTypes';
+import { AdminHome } from '../AdminComponents/AdminHome';
+import Home from '../UserComponents/Home';
 
 export default function AuthGuard({ children }: AuthGuardProps) {
-  const { isAuthenticated, isInitialized } = useAuthContext();
+  const { isAuthenticated, isInitialized, isAdmin } = useAuthContext();
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState<string | null>(null);
 
@@ -27,6 +26,21 @@ export default function AuthGuard({ children }: AuthGuardProps) {
       return <AdminLogin />;
     }
     return <Login />;
+  }
+
+  if (isAdmin) {
+    if (pathname.includes('admin')) {
+      return <>{children}</>;
+    }
+
+    return <Navigate to={'/admin/home'} />;
+  }
+
+  if (!isAdmin) {
+    if (!pathname.includes('admin')) {
+      return <>{children}</>;
+    }
+    return <Navigate to={'/home'} />;
   }
 
   if (requestedLocation && pathname !== requestedLocation) {
