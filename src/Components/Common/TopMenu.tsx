@@ -88,6 +88,7 @@ export default function TopMenu() {
               onClick={handleMenu}
               MenuListProps={{ 'aria-labelledby': 'account-menu' }}
             >
+              <MenuItem onClick={() => navigate('/admin/')}>Home</MenuItem>
               <MenuItem onClick={() => navigate('/admin/users')}>Users</MenuItem>
               <MenuItem onClick={() => navigate('/admin/games')}>Games</MenuItem>
             </Menu>

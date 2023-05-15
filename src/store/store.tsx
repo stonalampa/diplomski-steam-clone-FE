@@ -5,9 +5,13 @@ import {
   useSelector as useAppSelector,
 } from 'react-redux';
 import commonReducers from './commonReducers';
-import { commonMiddlewaresApi } from './commonMiddlewaresApi';
+import { commonMiddlewareApi } from './commonMiddlewareApi';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
+import { adminMiddlewareApi } from './adminMiddlewareApi';
+import adminReducers from './adminReducers';
+import { usersApi } from '../providers/UsersProvider'; // Import usersApi
+import { gamesApi } from '../providers/GamesProvider';
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +26,7 @@ const rootPersistConfig = {
 
 const rootReducer = combineReducers({
   ...commonReducers,
+  ...adminReducers,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -31,7 +36,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,
-    }).concat([...commonMiddlewaresApi]),
+    }).concat([...commonMiddlewareApi, ...adminMiddlewareApi]),
 });
 
 const persistor = persistStore(store);

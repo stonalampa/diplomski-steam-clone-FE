@@ -29,7 +29,6 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
   if (isAdmin) {
     if (pathname.includes('admin')) {
-      console.log(children);
       return <>{children}</>;
     }
 
