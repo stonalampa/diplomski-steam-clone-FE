@@ -1,3 +1,3 @@
-export function AdminGames() {
-  return <></>;
+export default function AdminGames() {
+  return <>ADMIN GAMES</>;
 }

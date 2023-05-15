@@ -1,3 +1,3 @@
-export function AdminUsers() {
-  return <></>;
+export default function AdminUsers() {
+  return <>ADMIN USERS</>;
 }

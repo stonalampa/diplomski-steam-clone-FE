@@ -10,6 +10,7 @@ import { createContext } from 'react';
 import { persistor, store } from '../store/store';
 import { SnackbarProvider } from 'notistack';
 import { ThemeProvider, createTheme } from '@mui/material';
+import TopMenu from '../components/Common/TopMenu';
 
 const theme = createTheme({
   palette: {
@@ -49,6 +50,7 @@ export default function App(appContext: AppContextType) {
                 }}
               >
                 <BrowserRouter>
+                  <TopMenu />
                   <Router />
                 </BrowserRouter>
               </SnackbarProvider>

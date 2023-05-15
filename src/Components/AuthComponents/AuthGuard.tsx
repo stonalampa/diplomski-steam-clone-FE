@@ -6,7 +6,6 @@ import LoadingScreen from '../Common/LoadingScreen';
 import Login from '../UserComponents/Login';
 import AdminLogin from '../AdminComponents/AdminLogin';
 import { AuthGuardProps } from './AuthTypes';
-import { AdminHome } from '../AdminComponents/AdminHome';
 import Home from '../UserComponents/Home';
 
 export default function AuthGuard({ children }: AuthGuardProps) {
@@ -30,10 +29,11 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
   if (isAdmin) {
     if (pathname.includes('admin')) {
+      console.log(children);
       return <>{children}</>;
     }
 
-    return <Navigate to={'/admin/home'} />;
+    return <Navigate to={'/'} />;
   }
 
   if (!isAdmin) {
