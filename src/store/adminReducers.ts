@@ -1,8 +1,8 @@
 import { GAMES_API_REDUCER_KEY, gamesApi } from '../providers/GamesProvider';
-import { USERS_API_REDUCER_KEY, usersApi } from '../providers/UsersProvider';
+import { ADMIN_USERS_API_REDUCER_KEY, adminUsersApi } from '../providers/UsersProvider';
 
 const adminReducers = {
-  [USERS_API_REDUCER_KEY]: usersApi.reducer,
+  [ADMIN_USERS_API_REDUCER_KEY]: adminUsersApi.reducer,
   [GAMES_API_REDUCER_KEY]: gamesApi.reducer,
 };
 

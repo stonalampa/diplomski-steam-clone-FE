@@ -6,9 +6,9 @@ type ResponseT = {
   users: IObject[];
 };
 
-export const USERS_API_REDUCER_KEY = 'usersApi';
-export const usersApi = createApi({
-  reducerPath: USERS_API_REDUCER_KEY,
+export const ADMIN_USERS_API_REDUCER_KEY = 'adminUsersApi';
+export const adminUsersApi = createApi({
+  reducerPath: ADMIN_USERS_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: BackendApi.defaults.baseURL,
     prepareHeaders: (headers) => {
@@ -19,7 +19,7 @@ export const usersApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Users'],
+  tagTypes: ['AdminUsers'],
   endpoints: (builder) => ({
     getAllUsers: builder.query<IObject[], void>({
       query: () => {
@@ -35,4 +35,39 @@ export const usersApi = createApi({
   }),
 });
 
-export const { useGetAllUsersQuery } = usersApi;
+export const USERS_API_REDUCER_KEY = 'usersApi';
+export const usersApi = createApi({
+  reducerPath: USERS_API_REDUCER_KEY,
+  baseQuery: fetchBaseQuery({
+    baseUrl: BackendApi.defaults.baseURL,
+  }),
+  tagTypes: ['Users'],
+  endpoints: (builder) => ({
+    registerUser: builder.mutation<any, IObject>({
+      query: (user) => {
+        return {
+          url: '/users',
+          method: 'POST',
+          body: user,
+        };
+      },
+    }),
+    resetPassword: builder.mutation<any, string>({
+      query: (email) => {
+        return {
+          url: '/users?resetPassword=true',
+          method: 'POST',
+          body: {
+            email,
+          },
+        };
+      },
+      transformResponse: (response: any) => {
+        return response;
+      },
+    }),
+  }),
+});
+
+export const { useGetAllUsersQuery } = adminUsersApi;
+export const { useResetPasswordMutation, useRegisterUserMutation } = usersApi;

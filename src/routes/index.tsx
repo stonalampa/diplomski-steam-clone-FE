@@ -9,6 +9,7 @@ const LazyAdminLogin = lazy(() => import('../components/AdminComponents/AdminLog
 const LazyHome = lazy(() => import('../components/UserComponents/Home'));
 const LazyLogin = lazy(() => import('../components/UserComponents/Login'));
 const LazyRegister = lazy(() => import('../components/UserComponents/Register'));
+const LazyResetPassword = lazy(() => import('../components/UserComponents/ResetPassword'));
 
 export default function Router() {
   return (
@@ -35,6 +36,7 @@ export default function Router() {
                 <Route path='/' element={<LazyHome />} />
                 <Route path='/login' element={<LazyLogin />} />
                 <Route path='/register' element={<LazyRegister />} />
+                <Route path='/resetPassword' element={<LazyResetPassword />} />
               </Routes>
             </AuthGuard>
           }

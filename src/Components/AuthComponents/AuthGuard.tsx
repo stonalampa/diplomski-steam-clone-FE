@@ -17,6 +17,10 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     return <LoadingScreen />;
   }
 
+  if (pathname.includes('resetPassword') || pathname.includes('register')) {
+    return <>{children}</>;
+  }
+
   if (!isAuthenticated) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);

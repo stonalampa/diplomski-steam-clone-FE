@@ -10,10 +10,8 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
 import { adminMiddlewareApi } from './adminMiddlewareApi';
 import adminReducers from './adminReducers';
-import { usersApi } from '../providers/UsersProvider'; // Import usersApi
-import { gamesApi } from '../providers/GamesProvider';
-
-// ----------------------------------------------------------------------
+import { usersMiddlewareApi } from './usersMiddlewareApi';
+import userReducers from './userReducers';
 
 export type AppDispatch = typeof store.dispatch;
 
@@ -27,6 +25,7 @@ const rootPersistConfig = {
 const rootReducer = combineReducers({
   ...commonReducers,
   ...adminReducers,
+  ...userReducers,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -36,7 +35,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,
-    }).concat([...commonMiddlewareApi, ...adminMiddlewareApi]),
+    }).concat([...commonMiddlewareApi, ...adminMiddlewareApi, ...usersMiddlewareApi]),
 });
 
 const persistor = persistStore(store);

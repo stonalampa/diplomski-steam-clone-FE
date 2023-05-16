@@ -1,4 +1,4 @@
 import { gamesApi } from '../providers/GamesProvider';
-import { usersApi } from '../providers/UsersProvider';
+import { adminUsersApi } from '../providers/UsersProvider';
 
-export const adminMiddlewareApi = [usersApi.middleware, gamesApi.middleware];
+export const adminMiddlewareApi = [adminUsersApi.middleware, gamesApi.middleware];
