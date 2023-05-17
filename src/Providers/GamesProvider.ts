@@ -32,7 +32,18 @@ export const gamesApi = createApi({
         return response.games;
       },
     }),
+    getGames: builder.query<IObject[], number>({
+      query: (limit) => {
+        return {
+          url: `/games?limit=${limit}`,
+          method: 'GET',
+        };
+      },
+      transformResponse: (response: ResponseT) => {
+        return response.games;
+      },
+    }),
   }),
 });
 
-export const { useGetAllGamesQuery } = gamesApi;
+export const { useGetAllGamesQuery, useGetGamesQuery } = gamesApi;

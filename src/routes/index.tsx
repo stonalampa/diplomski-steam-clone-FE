@@ -33,7 +33,8 @@ export default function Router() {
           element={
             <AuthGuard>
               <Routes>
-                <Route path='/' element={<LazyHome />} />
+                <Route path='/' element={<Navigate to='/home' replace />} />
+                <Route path='/home' element={<LazyHome />} />
                 <Route path='/login' element={<LazyLogin />} />
                 <Route path='/register' element={<LazyRegister />} />
                 <Route path='/resetPassword' element={<LazyResetPassword />} />

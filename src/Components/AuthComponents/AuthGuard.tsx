@@ -7,6 +7,7 @@ import Login from '../UserComponents/Login';
 import AdminLogin from '../AdminComponents/AdminLogin';
 import { AuthGuardProps } from './AuthTypes';
 import Home from '../UserComponents/Home';
+import LandingPage from '../UserComponents/LandingPage';
 
 export default function AuthGuard({ children }: AuthGuardProps) {
   const { isAuthenticated, isInitialized, isAdmin } = useAuthContext();
@@ -28,7 +29,10 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     if (pathname.includes('admin')) {
       return <AdminLogin />;
     }
-    return <Login />;
+    if (pathname.includes('login')) {
+      return <Login />;
+    }
+    return <LandingPage />;
   }
 
   if (isAdmin) {
@@ -40,7 +44,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   }
 
   if (!isAdmin) {
-    if (!pathname.includes('admin')) {
+    if (!pathname.includes('admin') && !pathname.includes('login')) {
       return <>{children}</>;
     }
     return <Navigate to={'/home'} />;
