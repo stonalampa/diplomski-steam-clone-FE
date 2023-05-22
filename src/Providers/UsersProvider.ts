@@ -32,6 +32,32 @@ export const adminUsersApi = createApi({
         return response.users;
       },
     }),
+    createUser: builder.mutation<any, IObject>({
+      query: (user) => {
+        return {
+          url: '/users',
+          method: 'POST',
+          body: user,
+        };
+      },
+    }),
+    updateUser: builder.mutation<any, IObject>({
+      query: (user) => {
+        return {
+          url: `/users/${user.id}`,
+          method: 'PUT',
+          body: user,
+        };
+      },
+    }),
+    deleteUser: builder.mutation<any, IObject>({
+      query: (id) => {
+        return {
+          url: `/users/${id}`,
+          method: 'DELETE',
+        };
+      },
+    }),
   }),
 });
 
@@ -52,7 +78,7 @@ export const usersApi = createApi({
         };
       },
     }),
-    resetPassword: builder.mutation<any, string>({
+    resetPassword: builder.mutation<{ error: string } | { message: string }, string>({
       query: (email) => {
         return {
           url: '/users?resetPassword=true',
@@ -62,12 +88,14 @@ export const usersApi = createApi({
           },
         };
       },
-      transformResponse: (response: any) => {
-        return response;
-      },
     }),
   }),
 });
 
-export const { useGetAllUsersQuery } = adminUsersApi;
+export const {
+  useGetAllUsersQuery,
+  useCreateUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} = adminUsersApi;
 export const { useResetPasswordMutation, useRegisterUserMutation } = usersApi;

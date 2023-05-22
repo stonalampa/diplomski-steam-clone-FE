@@ -1,29 +1,32 @@
 import * as Yup from 'yup';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+
 import { useAuthContext } from '../AuthComponents/useAuthContext';
 
 export default function Login() {
   const { login } = useAuthContext();
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
     password: Yup.string().required('Required'),
   });
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -73,7 +76,6 @@ export default function Login() {
             id='email'
             label='Email Address'
             autoComplete='email'
-            autoFocus
             {...formik.getFieldProps('email')}
             error={formik.touched.email && formik.errors.email ? true : false}
             helperText={formik.touched.email && formik.errors.email}

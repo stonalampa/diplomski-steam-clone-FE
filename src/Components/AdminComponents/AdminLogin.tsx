@@ -51,7 +51,6 @@ export default function AdminLogin() {
           },
           true,
         );
-        // navigate('/admin/home');
       } catch (error) {
         console.error(error);
         enqueueSnackbar('Invalid email or password', { variant: 'error' });
@@ -86,7 +85,6 @@ export default function AdminLogin() {
               id='email'
               label='Email Address'
               autoComplete='email'
-              autoFocus
               {...formik.getFieldProps('email')}
               error={formik.touched.email && formik.errors.email ? true : false}
               helperText={formik.touched.email && formik.errors.email}

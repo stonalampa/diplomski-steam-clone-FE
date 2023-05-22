@@ -1,19 +1,18 @@
-import { Button, TextField } from '@mui/material';
-import React, { useState } from 'react';
 import * as Yup from 'yup';
+import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
-import { enqueueSnackbar } from 'notistack';
+import { useSnackbar } from 'notistack';
+
 import { useResetPasswordMutation } from '../../providers/UsersProvider';
+
 const ResetPassword = () => {
-  const resetPassword = async ({ email }: { email: string }) => {
-    console.log(email);
-  };
-  const [resetPasswordMutation, { isLoading, isError, isSuccess, error }] =
-    useResetPasswordMutation();
-  const [email, setEmail] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
+  const [resetPasswordMutation, { isLoading }] = useResetPasswordMutation();
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
   });
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -21,18 +20,26 @@ const ResetPassword = () => {
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
-        const { data } = await resetPasswordMutation(values.email);
-        console.log('🚀 ~ file: ResetPassword.tsx:27 ~ onSubmit: ~ data:', data);
+        const data = await resetPasswordMutation(values.email);
+        if ('error' in data) {
+          enqueueSnackbar(`User password reset failed!`, { variant: 'error' });
+        } else {
+          enqueueSnackbar('New password has been sent!', { variant: 'success' });
+        }
+        resetForm();
       } catch (error) {
         console.error(error);
-        enqueueSnackbar('Password reset failed', { variant: 'error' });
+        enqueueSnackbar('Password reset failed - unknown error', { variant: 'error' });
         resetForm();
       }
     },
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <Box component='form' onSubmit={formik.handleSubmit} noValidate sx={{ mt: 3 }}>
+      <Typography id='modal-modal-title' variant='h6' component='h2'>
+        Reset password
+      </Typography>
       <TextField
         margin='normal'
         required
@@ -40,7 +47,6 @@ const ResetPassword = () => {
         id='email'
         label='Email Address'
         autoComplete='email'
-        autoFocus
         {...formik.getFieldProps('email')}
         error={formik.touched.email && formik.errors.email ? true : false}
         helperText={formik.touched.email && formik.errors.email}
@@ -52,9 +58,9 @@ const ResetPassword = () => {
         disabled={!!formik.errors.email}
         style={{ marginTop: '1rem' }}
       >
-        Reset Password
+        {isLoading ? <CircularProgress size={20} /> : 'Reset password'}
       </Button>
-    </form>
+    </Box>
   );
 };
 
