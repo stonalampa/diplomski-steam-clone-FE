@@ -55,6 +55,7 @@ export default function Register() {
     validationSchema,
     onSubmit: async (data, { resetForm }) => {
       try {
+        //eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { confirmPassword, ...dataWithoutDoublePasswords } = data;
         const response = await register(dataWithoutDoublePasswords);
 

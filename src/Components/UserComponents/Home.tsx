@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Box, Tab, Tabs, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Box, Tab, Tabs } from '@mui/material';
 import { styled } from '@mui/system';
+
 import Wishlist from './Wishlist';
 import UserProfile from './UserProfile';
-
 import Library from './Library';
 import GamesStore from './GamesStore';
 
-const StyledPageContainer = styled(Box)(({ theme }) => ({
+const StyledPageContainer = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
 }));
 
-const StyledTabsContainer = styled(Box)(({ theme }) => ({
+const StyledTabsContainer = styled(Box)(() => ({
   width: '500px',
 }));
 
@@ -27,7 +27,8 @@ const StyledTab = styled(Tab)(({ theme }) => ({
 const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const handleTabChange = (event: any, newValue: any) => {
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleTabChange = (event: unknown, newValue: number) => {
     setSelectedTab(newValue);
   };
 

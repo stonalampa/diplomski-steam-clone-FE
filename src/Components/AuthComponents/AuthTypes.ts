@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AuthUserType = null | Record<string, any>;
 
 export type AuthStateType = {
@@ -29,6 +30,7 @@ export type Payload = {
   [Types.LOGOUT]: undefined;
 };
 
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ActionMapType<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
     ? {

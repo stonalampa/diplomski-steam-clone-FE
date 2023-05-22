@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { styled } from '@mui/system';
-import { AppBar, IconButton, Menu, MenuItem, Select, Toolbar, Typography } from '@mui/material';
-import { AccountCircle, Menu as MenuIcon } from '@mui/icons-material';
-import { useAuthContext } from '../AuthComponents/useAuthContext';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../AuthComponents/JwtContext';
+import { styled } from '@mui/system';
+import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AccountCircle, Menu as MenuIcon } from '@mui/icons-material';
 
-const RootAppBar = styled(AppBar)(({ theme }) => ({
+import { useAuthContext } from '../AuthComponents/useAuthContext';
+
+const RootAppBar = styled(AppBar)(() => ({
   flexGrow: 1,
 }));
 
-const Title = styled(Typography)(({ theme }) => ({
+const Title = styled(Typography)(() => ({
   flexGrow: 1,
   textAlign: 'left',
 }));
 
-const RootDiv = styled('div')(({ theme }) => ({
+const RootDiv = styled('div')(() => ({
   flexGrow: 1,
 }));
 

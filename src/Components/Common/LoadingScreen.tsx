@@ -1,24 +1,9 @@
 import { CircularProgress } from '@mui/material';
-import React, { useState } from 'react';
-
-// const useStyles = makeStyles((theme: any) => ({
-//   loadingContainer: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     height: '100vh',
-//     width: '100%',
-//   },
-// }));
+import { useState } from 'react';
 
 const LoadingScreen = () => {
-  const [loading, setLoading] = useState(true);
-  //   const classes = useStyles();
-
-  // Simulate a delay for the loading screen
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 2000);
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [loading, setLoading] = useState<boolean>(true);
 
   return (
     <>
@@ -27,7 +12,6 @@ const LoadingScreen = () => {
           <CircularProgress />
         </div>
       ) : (
-        // Render your app content here
         <h1>Hello World!</h1>
       )}
     </>

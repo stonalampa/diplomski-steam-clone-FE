@@ -37,6 +37,7 @@ export default function AdminUsers() {
 
   const handleSelectionChange = (
     rowSelectionModel: GridRowSelectionModel,
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
     details: GridCallbackDetails,
   ) => {
     if (rowSelectionModel.length > 0) {

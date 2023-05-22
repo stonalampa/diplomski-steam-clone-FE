@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 import { FormikProps, GamesModalProps } from './GamesTypes';
 
-const ModalContentWrapper = styled(Box)(({ theme }) => ({
+const ModalContentWrapper = styled(Box)(() => ({
   maxHeight: 900,
   overflowY: 'auto',
   paddingRight: 15,

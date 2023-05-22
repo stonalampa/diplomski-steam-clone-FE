@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-// import { makeStyles } from '@mui/styles';
+import { useEffect } from 'react';
 import { Button, Modal, Typography, styled } from '@mui/material';
+import { PopupModalProps } from './CommonTypes';
 
 const ModalContainer = styled('div')`
   display: flex;
@@ -20,7 +20,7 @@ const CloseButton = styled(Button)`
   margin-top: 1rem;
 `;
 
-const PopupModal = ({ text, open, onClose, timeout }: any) => {
+const PopupModal = ({ text, open, timeout, onClose }: PopupModalProps) => {
   useEffect(() => {
     if (open && timeout) {
       const timer = setTimeout(onClose, timeout);
