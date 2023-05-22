@@ -11,7 +11,7 @@ export const adminGamesApi = createApi({
   reducerPath: ADMIN_GAMES_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: BackendApi.defaults.baseURL,
-    prepareHeaders: (headers, {}) => {
+    prepareHeaders: (headers) => {
       const jwtToken = localStorage.getItem('accessToken');
       if (jwtToken) {
         headers.set('Authorization', `Bearer ${jwtToken}`);

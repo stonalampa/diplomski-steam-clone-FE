@@ -25,9 +25,9 @@ const columns = [
 
 export default function AdminUsers() {
   const { data, isLoading, refetch } = useGetAllUsersQuery();
-  const [createUser, {}] = useCreateUserMutation();
-  const [updateUser, {}] = useUpdateUserMutation();
-  const [deleteUser, {}] = useDeleteUserMutation();
+  const [createUser] = useCreateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState<boolean>(false);
   const [isAdd, setIsAdd] = useState<boolean>(false);

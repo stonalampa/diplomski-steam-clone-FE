@@ -6,7 +6,6 @@ import LoadingScreen from '../Common/LoadingScreen';
 import Login from '../UserComponents/Login';
 import AdminLogin from '../AdminComponents/AdminLogin';
 import { AuthGuardProps } from './AuthTypes';
-import Home from '../UserComponents/Home';
 import LandingPage from '../UserComponents/LandingPage';
 
 export default function AuthGuard({ children }: AuthGuardProps) {

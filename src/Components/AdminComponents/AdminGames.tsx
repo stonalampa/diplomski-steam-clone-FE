@@ -29,9 +29,9 @@ const columns = [
 
 export default function AdminGames() {
   const { data, isLoading, refetch } = useGetAllGamesQuery();
-  const [createGame, {}] = useCreateGameMutation();
-  const [updateGame, {}] = useUpdateGameMutation();
-  const [deleteGame, {}] = useDeleteGameMutation();
+  const [createGame] = useCreateGameMutation();
+  const [updateGame] = useUpdateGameMutation();
+  const [deleteGame] = useDeleteGameMutation();
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState<boolean>(false);
   const [isAdd, setIsAdd] = useState<boolean>(false);
