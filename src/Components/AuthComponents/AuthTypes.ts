@@ -7,7 +7,7 @@ export type AuthStateType = {
   isAuthenticated: boolean;
   isInitialized: boolean;
   isAdmin: boolean;
-  user: AuthUserType;
+  userId: string;
 };
 
 export enum Types {
@@ -20,12 +20,12 @@ export type Payload = {
   [Types.INITIAL]: {
     isAuthenticated: boolean;
     isAdmin: boolean;
-    user: AuthUserType;
+    userId: string;
   };
   [Types.LOGIN]: {
     isAuthenticated: boolean;
     isAdmin: boolean;
-    user: AuthUserType;
+    userId: string;
   };
   [Types.LOGOUT]: undefined;
 };
@@ -54,7 +54,7 @@ export type JWTContextType = {
   isAuthenticated: boolean;
   isAdmin: boolean;
   isInitialized: boolean;
-  user: AuthUserType;
+  userId: string;
   login: (params: LoginParams, isAdminPath: boolean) => Promise<void>;
   logout: () => void;
 };
@@ -71,4 +71,4 @@ export type AuthGuardProps = {
   children: ReactNode;
 };
 
-export type ValidToken = { isExpired: boolean; isAdmin: boolean };
+export type ValidToken = { isExpired: boolean; isAdmin: boolean; id: string };

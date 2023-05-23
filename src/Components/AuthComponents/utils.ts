@@ -23,7 +23,7 @@ export const isValidToken = (accessToken: string | null): boolean | ValidToken =
   if (decoded.exp < currentTime) {
     return false;
   }
-  return { isExpired: false, isAdmin: decoded.isAdmin };
+  return { isExpired: false, isAdmin: decoded.isAdmin, id: decoded.id };
 };
 
 export const tokenExpired = (exp: number) => {

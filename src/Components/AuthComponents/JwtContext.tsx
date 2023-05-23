@@ -10,14 +10,18 @@ import {
   LoginParams,
   Types,
 } from './AuthTypes';
-import { setIsAdmin, setJwtToken } from '../../store/authentication/slices/authentication';
+import {
+  setIsAdmin,
+  setJwtToken,
+  setUserId,
+} from '../../store/authentication/slices/authentication';
 import { useDispatch } from 'react-redux';
 
 const initialState: AuthStateType = {
   isInitialized: false,
   isAuthenticated: false,
   isAdmin: false,
-  user: null,
+  userId: '',
 };
 
 const reducer = (state: AuthStateType, action: ActionsType) => {
@@ -26,7 +30,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
       isInitialized: true,
       isAuthenticated: action.payload.isAuthenticated,
       isAdmin: action.payload.isAdmin,
-      user: action.payload.user,
+      userId: action.payload.userId,
     };
   }
   if (action.type === Types.LOGIN) {
@@ -34,7 +38,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
       ...state,
       isAuthenticated: true,
       isAdmin: action.payload.isAdmin,
-      user: action.payload.user,
+      userId: action.payload.userId,
     };
   }
   if (action.type === Types.LOGOUT) {
@@ -42,7 +46,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
       ...state,
       isAuthenticated: false,
       isAdmin: false,
-      user: null,
+      userId: '',
     };
   }
   return state;
@@ -81,15 +85,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       if (accessToken && typeof decodedValues !== 'boolean') {
         setSession(accessToken);
-        const user = {};
         dispatchToStore(setJwtToken(accessToken));
         dispatchToStore(setIsAdmin(decodedValues?.isAdmin));
+        dispatchToStore(setUserId(decodedValues?.id));
         dispatch({
           type: Types.INITIAL,
           payload: {
             isAuthenticated: true,
             isAdmin: decodedValues.isAdmin,
-            user,
+            userId: decodedValues.id,
           },
         });
       } else {
@@ -98,7 +102,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           payload: {
             isAuthenticated: false,
             isAdmin: false,
-            user: null,
+            userId: '',
           },
         });
       }
@@ -109,7 +113,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         payload: {
           isAuthenticated: false,
           isAdmin: false,
-          user: null,
+          userId: '',
         },
       });
     }
@@ -139,7 +143,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         payload: {
           isAuthenticated: !decodedValues.isExpired,
           isAdmin: decodedValues.isAdmin,
-          user: {},
+          userId: '',
         },
       });
     }
@@ -157,12 +161,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       isInitialized: state.isInitialized,
       isAuthenticated: state.isAuthenticated,
       isAdmin: state.isAdmin,
-      user: state.user,
+      userId: state.userId,
       method: 'jwt',
       login,
       logout,
     }),
-    [state.isAuthenticated, state.isInitialized, state.user, state.isAdmin, login, logout],
+    [state.isAuthenticated, state.isInitialized, state.userId, state.isAdmin, login, logout],
   );
 
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;

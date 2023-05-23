@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { BaseQueryFn, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BackendApi } from '../helpers/BackendApi';
 import { IObject } from '../components/Common/CommonTypes';
 
@@ -89,6 +89,27 @@ export const usersApi = createApi({
         };
       },
     }),
+    getUserData: builder.query<IObject, string>({
+      query: (id) => ({
+        url: `/users/${id}`,
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      }),
+    }),
+    updateUserProfile: builder.mutation<any, IObject>({
+      query: (user) => {
+        return {
+          url: `/users/${user.id}`,
+          method: 'PUT',
+          body: user,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -98,4 +119,9 @@ export const {
   useUpdateUserMutation,
   useDeleteUserMutation,
 } = adminUsersApi;
-export const { useResetPasswordMutation, useRegisterUserMutation } = usersApi;
+export const {
+  useResetPasswordMutation,
+  useRegisterUserMutation,
+  useGetUserDataQuery,
+  useUpdateUserProfileMutation,
+} = usersApi;
