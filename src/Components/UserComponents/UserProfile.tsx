@@ -49,8 +49,6 @@ export default function UserProfile() {
     setIsEditing(!isEditing);
   };
 
-  useEffect(() => {});
-
   const formik = useFormik({
     initialValues: { ...user, confirmPassword: user.password } as FormInitialValues,
     validationSchema,
