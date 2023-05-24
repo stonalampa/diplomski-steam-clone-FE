@@ -1,30 +1,21 @@
 TODO:
 
-Utorak:
+DANAS:
 
-1. Dodaj user edit sa providerom
-2. Prikazi sve podatke userove
+2. Buy
+3. Add to wishlist
+4. Posle payment email
+5. Posle payment tnx poruka
+6. Download
 
-Sreda:
-
-1. Dodaj shared component koja ce biti kada se otvori igra gde ce sve ucitati, modal
-2. Dodaj ostavljanje komentara, dodavanje u wish list najveca funkcionalnost
-
-Cetvrtak:
-
-1. Dodaj library
-2. Dodaj wishlist
-3. Dodaj store
-
-Petak:
-
-1. Search games
-2. Kupovina
-3. Download
-4. Nakon paymenta kada se upise igra u DB onda da pozove email helper da posalje tnx for buying I koja igra i koja cena je placena
+7. Dodaj shared component koja ce biti kada se otvori igra gde ce sve ucitati, modal
+8. Dodaj ostavljanje komentara, dodavanje u wish list najveca funkcionalnost
+9. Dodaj library
+10. Nakon paymenta kada se upise igra u DB onda da pozove email helper da posalje tnx for buying I koja igra i koja cena je placena
 
 Vikend:
 
+- Fix form update after user profile refresh
 - Testiraj sve
 - Refaktorisi tipove i slicno
 - Dodaj u seedove za igre - slike i video linkove (prave linkove)
@@ -55,3 +46,9 @@ return (
 </div>
 );
 } -->
+
+<!-- Svi podaci,
+Trailer sa svim slikama
+Image ovaj samo
+Add to wishlist
+Buy -->

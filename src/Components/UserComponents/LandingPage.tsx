@@ -12,8 +12,10 @@ export const LandingPage = () => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const handleSlideChange = (newIndex?: number, oldIndex?: number) => {
-    if (oldIndex === images.length - 1) {
+    if (newIndex === images.length - 1 && oldIndex === 0) {
       setSlideIndex(0);
+    } else if (newIndex === 0 && oldIndex === images.length - 1) {
+      setSlideIndex(images.length - 1);
     } else {
       setSlideIndex(newIndex ?? 0);
     }
