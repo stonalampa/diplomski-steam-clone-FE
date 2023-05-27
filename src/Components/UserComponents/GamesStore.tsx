@@ -58,7 +58,7 @@ const GamesStore = () => {
   }, [data, filteredItems]);
 
   return (
-    <Container maxWidth='md'>
+    <Container>
       <TextField
         label='Search'
         variant='outlined'

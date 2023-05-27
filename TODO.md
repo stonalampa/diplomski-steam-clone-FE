@@ -1,26 +1,26 @@
 TODO:
 
-DANAS:
+1. Dodaj username za toolbar
 
-2. Buy
-3. Add to wishlist
-4. Posle payment email
-5. Posle payment tnx poruka
-6. Download
+1. Buying
+1. Email
+1. Wishlist
 
-7. Dodaj shared component koja ce biti kada se otvori igra gde ce sve ucitati, modal
-8. Dodaj ostavljanje komentara, dodavanje u wish list najveca funkcionalnost
-9. Dodaj library
-10. Nakon paymenta kada se upise igra u DB onda da pozove email helper da posalje tnx for buying I koja igra i koja cena je placena
+1. Ista komponenta za wishlist i store
+1. Druga komponenta za libray + download
+
+1. Komentari + da ne moze vise od 1 vidi to na kraju kako
 
 Vikend:
 
 - Fix form update after user profile refresh
+
 - Testiraj sve
+
 - Refaktorisi tipove i slicno
-- Dodaj u seedove za igre - slike i video linkove (prave linkove)
-- CSS sa milicom
 - DODAJ SVIMA VALIDACIJU ZA SVE INPUT PROPERTIJE DETALJNIJE ZA NUMBERS I TAKO TO
+- Dodaj za tabele header boldovan
+- Dodaj za tabele boolean -> label
 
 <!-- Pop prosledi ga samo na payment i download sa odgovarajucim podacima
 import React, { useState } from 'react';

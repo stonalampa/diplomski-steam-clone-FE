@@ -78,7 +78,6 @@ export default function UserProfile() {
           backgroundColor: 'white',
           boxShadow: 24,
           padding: '2rem',
-          maxWidth: '500px',
           width: '100%',
         }}
       >

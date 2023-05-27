@@ -25,6 +25,11 @@ export const slice = createSlice({
       state.dateOfBirth = dateOfBirth;
       // state.paymentCard = paymentCards[0];
     },
+    setLibraryAndWishlist: (state, action) => {
+      const { library, wishlist } = action.payload;
+      state.library = library;
+      state.wishlist = wishlist;
+    },
   },
 });
 

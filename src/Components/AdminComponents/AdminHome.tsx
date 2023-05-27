@@ -2,7 +2,7 @@ import { Container, Typography } from '@mui/material';
 
 const AdminHome = () => {
   return (
-    <Container maxWidth='sm'>
+    <Container>
       <Typography variant='h4' component='h1' align='center' gutterBottom>
         Welcome to the Steam clone admin page
       </Typography>

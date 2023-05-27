@@ -15,7 +15,7 @@ import TopMenu from '../components/Common/TopMenu';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#00695c',
+      main: '#000000',
     },
     secondary: {
       main: '#f44336',

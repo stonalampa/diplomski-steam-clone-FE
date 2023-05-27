@@ -2,14 +2,12 @@ import {
   Box,
   Button,
   Card,
-  CardActionArea,
   CardMedia,
   Dialog,
   DialogContent,
   Divider,
   Grid,
   IconButton,
-  Link,
   Modal,
   Typography,
   styled,
@@ -18,6 +16,7 @@ import { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import YouTube from 'react-youtube';
 import CloseIcon from '@mui/icons-material/Close';
+
 const ModalContentWrapper = styled(Box)(() => ({
   maxHeight: 900,
   overflowY: 'auto',
@@ -62,6 +61,8 @@ const GameModal = ({
   const [trailer, setTrailer] = useState<string>('');
   const [cover, setCover] = useState<string>('');
   const [images, setImages] = useState<Array<string>>([]);
+  const [owned, setOwned] = useState<boolean>(false);
+  const [inWishlist, setInWishlist] = useState<boolean>(false);
 
   const handleOpenModal = () => {
     setSelectedImage(images[slideIndex]);
@@ -81,6 +82,10 @@ const GameModal = ({
       setSlideIndex(newIndex ?? 0);
     }
   };
+
+  // const handleBuying = () => {};
+
+  // const handleWishlist = () => {};
 
   const getVideoId = (url: string) => {
     const regex =
@@ -112,7 +117,6 @@ const GameModal = ({
           backgroundColor: 'white',
           boxShadow: 24,
           padding: '2rem',
-          maxWidth: '1000px',
           width: '100%',
         }}
       >
@@ -134,7 +138,29 @@ const GameModal = ({
                 {game.title}
               </Typography>
               <Typography variant='subtitle1' gutterBottom>
-                {game.developer}
+                Developer: {game.developer}
+              </Typography>
+              <Typography variant='subtitle1' gutterBottom>
+                Publisher: {game.publisher}
+              </Typography>
+              <Typography variant='subtitle1' gutterBottom>
+                Score: {(game.score / game.numberOfScores).toFixed(2)}
+              </Typography>
+              <Typography
+                variant={game.discount !== 0 ? 'body1' : 'inherit'}
+                component='span'
+                style={{ textDecoration: game.discount !== 0 ? 'line-through' : 'none' }}
+                gutterBottom
+              >
+                Price: ${game.price}
+              </Typography>
+              {game.discount !== 0 && (
+                <Typography variant='body1' component='span' gutterBottom>
+                  New price: ${game.price - game.discount}
+                </Typography>
+              )}
+              <Typography variant='subtitle1' gutterBottom>
+                Publisher: {game.publisher}
               </Typography>
               <Typography variant='body1' gutterBottom>
                 {game.description}
@@ -159,6 +185,8 @@ const GameModal = ({
                   animation='slide'
                   navButtonsAlwaysVisible={false}
                   sx={{ width: 400, height: 400 }}
+                  stopAutoPlayOnHover={true}
+                  interval={3000}
                 >
                   {images.map((screenshot: string, index: number) => (
                     <Card key={index} sx={{ width: 400, height: 400 }}>
@@ -180,9 +208,17 @@ const GameModal = ({
                 <YouTube videoId={getVideoId(trailer)} opts={videoOpts} />
               </Card>
             </Box>
+            <Grid item>
+              <Button onClick={handleWishlist}>
+                {inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+              </Button>
+              <Button disabled={owned} onClick={handleBuying}>
+                Buy
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
-        <Dialog open={imageDialogOpen} onClose={handleCloseModal} maxWidth='md' fullWidth>
+        <Dialog open={imageDialogOpen} onClose={handleCloseModal} fullWidth>
           <IconButton
             aria-label='close'
             style={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}
@@ -204,3 +240,6 @@ const GameModal = ({
 };
 
 export default GameModal;
+
+// kada se loaduje pokupi library i sa tim imas i wishlist i imas owned
+// od toga samo proveri za ove dugmice if includes

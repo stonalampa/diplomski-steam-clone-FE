@@ -11,6 +11,7 @@ import { setUserState } from '../../store/user/slices/user';
 import { useSelector } from 'react-redux';
 import { userId } from '../../store/authentication/selectors/authenticationSelector';
 import { dispatch } from '../../store/store';
+import { useGetLibraryDataQuery } from '../../providers/LibraryProvider';
 
 const StyledPageContainer = styled(Box)(() => ({
   display: 'flex',
@@ -31,7 +32,10 @@ const StyledTab = styled(Tab)(({ theme }) => ({
 
 const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const { data } = useGetUserDataQuery(useSelector(userId) as string);
+  const id = useSelector(userId) as string;
+  const { data } = useGetUserDataQuery(id);
+  const { data: userLibrary } = useGetLibraryDataQuery(id);
+  console.log('🚀 ~ file: Home.tsx:37 ~ Home ~ userLibrary:', userLibrary);
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleTabChange = (event: unknown, newValue: number) => {
     setSelectedTab(newValue);
@@ -43,19 +47,26 @@ const Home = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (userLibrary?.ID && data?.userID) {
+      dispatch(setLibraryAndWishlist(userLibrary));
+    }
+  }, [userLibrary]);
+
   return (
     <StyledPageContainer>
       <StyledTabsContainer>
         <Tabs value={selectedTab} onChange={handleTabChange} centered>
           <StyledTab label='Store' />
-          <StyledTab label='Library' />
+
           <StyledTab label='Wishlist' />
+          <StyledTab label='Library' />
           <StyledTab label='Profile' />
         </Tabs>
         <Box p={2}>
           {selectedTab === 0 && <GamesStore />}
-          {selectedTab === 1 && <Library />}
-          {selectedTab === 2 && <Wishlist />}
+          {selectedTab === 1 && <Wishlist />}
+          {selectedTab === 2 && <Library />}
           {selectedTab === 3 && <UserProfile />}
         </Box>
       </StyledTabsContainer>

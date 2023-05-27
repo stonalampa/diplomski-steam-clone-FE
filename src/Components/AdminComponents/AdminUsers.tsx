@@ -5,7 +5,7 @@ import {
   useGetAllUsersQuery,
   useUpdateUserMutation,
 } from '../../providers/UsersProvider';
-import { Button, Container, Grid } from '@mui/material';
+import { Box, Button, Card, Container, Grid } from '@mui/material';
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 
@@ -111,19 +111,54 @@ export default function AdminUsers() {
 
   return (
     { isLoading } && (
-      <Container>
-        <Grid>
-          <Grid item>
-            <Button onClick={handleOpenAddNewDialog}>Add new user</Button>
-            <Button disabled={!selectedRow} onClick={handleOpenEditDialog}>
+      <Box sx={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
+        <Card
+          sx={{
+            backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+            maxWidth: '1200px',
+            width: '100%',
+            p: 4,
+            margin: '0 auto',
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Box sx={{ mb: 4, alignSelf: 'flex-end', p: 2 }}>
+            <Button variant='contained' color='success' onClick={handleOpenAddNewDialog}>
+              Add new user
+            </Button>
+            <Button
+              variant='contained'
+              color='info'
+              disabled={!selectedRow}
+              onClick={handleOpenEditDialog}
+              sx={{ ml: 2 }}
+            >
               Edit user
             </Button>
-            <Button disabled={!selectedRow} onClick={handleOpenDeleteDialog}>
+            <Button
+              variant='contained'
+              color='error'
+              disabled={!selectedRow}
+              onClick={handleOpenDeleteDialog}
+              sx={{ ml: 2 }}
+            >
               Delete user
             </Button>
-          </Grid>
-          <Grid item>
+          </Box>
+          <Box sx={{ backgroundColor: 'rgba(265, 265, 265, 0.1)' }}>
             <DataGrid
+              sx={{
+                color: 'white',
+                '& .MuiTablePagination-toolbar ': {
+                  color: 'white',
+                },
+                '& .MuiDataGrid-row.Mui-selected': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+                },
+              }}
               initialState={{
                 pagination: { paginationModel: { pageSize: 10 } },
               }}
@@ -136,18 +171,18 @@ export default function AdminUsers() {
               rowSelectionModel={selectedRow ? [selectedRow.ID] : []}
               onRowSelectionModelChange={handleSelectionChange}
             />
-          </Grid>
-        </Grid>
-        <UsersModal
-          open={open}
-          isAdd={isAdd}
-          isEdit={isEdit}
-          handleClose={handleClose}
-          submit={handleSubmit}
-          isLoading={isLoadingButton}
-          rowData={selectedRow || {}}
-        ></UsersModal>
-      </Container>
+          </Box>
+          <UsersModal
+            open={open}
+            isAdd={isAdd}
+            isEdit={isEdit}
+            handleClose={handleClose}
+            submit={handleSubmit}
+            isLoading={isLoadingButton}
+            rowData={selectedRow || {}}
+          ></UsersModal>
+        </Card>
+      </Box>
     )
   );
 }

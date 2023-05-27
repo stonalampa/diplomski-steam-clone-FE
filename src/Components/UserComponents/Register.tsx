@@ -75,7 +75,7 @@ export default function Register() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Container maxWidth='sm'>
+      <Container>
         <Box component='form' onSubmit={formik.handleSubmit} noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>

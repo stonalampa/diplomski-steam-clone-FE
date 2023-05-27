@@ -16,6 +16,7 @@ import {
   createTheme,
   InputAdornment,
   IconButton,
+  Card,
 } from '@mui/material';
 import { useAuthContext } from '../AuthComponents/useAuthContext';
 
@@ -60,31 +61,59 @@ export default function AdminLogin() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='xs'>
-        <CssBaseline />
+    <Box sx={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
+      <Card
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+          maxWidth: '800px',
+          width: '100%',
+          p: 4,
+          margin: '0 auto',
+          color: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'white', color: 'black' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component='h1' variant='h3'>
+          Admin sign in
+        </Typography>
         <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
+          component='form'
+          onSubmit={formik.handleSubmit}
+          noValidate
+          sx={{ mt: 3, textAlign: 'center' }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component='h1' variant='h1'>
-            Admin sign in
-          </Typography>
-          <Box component='form' onSubmit={formik.handleSubmit} noValidate sx={{ mt: 3 }}>
+          <Box sx={{ padding: '15px 0' }}>
             <TextField
               margin='normal'
               required
               fullWidth
               id='email'
               label='Email Address'
-              autoComplete='email'
+              sx={{
+                '& input': {
+                  backgroundColor: 'transparent',
+                },
+                '& fieldset': {
+                  borderColor: 'white',
+                  backgroundColor: 'transparent',
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: 'white',
+                },
+              }}
+              inputProps={{
+                style: {
+                  color: 'white',
+                  borderColor: 'white',
+                },
+              }}
               {...formik.getFieldProps('email')}
               error={formik.touched.email && formik.errors.email ? true : false}
               helperText={formik.touched.email && formik.errors.email}
@@ -97,6 +126,22 @@ export default function AdminLogin() {
               type={showPassword ? 'text' : 'password'}
               id='password'
               autoComplete='current-password'
+              sx={{
+                '& fieldset': {
+                  borderColor: 'white',
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: 'white',
+                },
+              }}
+              inputProps={{
+                style: {
+                  color: 'white',
+                  borderColor: 'white',
+                },
+              }}
               {...formik.getFieldProps('password')}
               error={formik.touched.password && formik.errors.password ? true : false}
               helperText={formik.touched.password && formik.errors.password}
@@ -104,6 +149,7 @@ export default function AdminLogin() {
                 endAdornment: (
                   <InputAdornment position='end'>
                     <IconButton
+                      sx={{ color: 'white' }}
                       onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
                       edge='end'
                     >
@@ -113,12 +159,12 @@ export default function AdminLogin() {
                 ),
               }}
             />
-            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-              Sign In
-            </Button>
           </Box>
+          <Button type='submit' variant='outlined' color='inherit'>
+            Sign In
+          </Button>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Card>
+    </Box>
   );
 }

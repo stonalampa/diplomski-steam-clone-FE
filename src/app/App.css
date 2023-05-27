@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.MuiContainer-root  {
+  max-width: 100vw;
+}

@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import {
   Box,
   Button,
+  Card,
   CircularProgress,
   IconButton,
   InputAdornment,
@@ -70,6 +71,12 @@ const UsersModal = ({
 
   return isAdd || isEdit ? (
     <Modal
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: 'rgba(0, 0, 0, 0.2) ',
+      }}
       open={open}
       onClose={handleClose}
       aria-labelledby='modal-modal-title'
@@ -77,25 +84,59 @@ const UsersModal = ({
     >
       <Box
         sx={{
-          backgroundColor: 'white',
-          boxShadow: 24,
-          padding: '2rem',
-          maxWidth: '500px',
+          backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+          maxWidth: '800px',
           width: '100%',
+          p: 4,
+          margin: '0 auto',
+          color: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        <Typography id='modal-modal-title' variant='h6' component='h2'>
+        <Typography id='modal-modal-title' variant='h4' component='h2'>
           {isEdit ? 'Edit User' : 'Add New User'}
         </Typography>
-        <Box component='form' onSubmit={formik.handleSubmit} noValidate sx={{ mt: 3 }}>
+        <Box
+          component='form'
+          onSubmit={formik.handleSubmit}
+          noValidate
+          sx={{
+            mt: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
           <TextField
+            fullWidth
             margin='normal'
             required
-            fullWidth
             id='username'
             label='Username'
             autoComplete='username'
-            autoFocus
+            sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+              },
+              '& fieldset': {
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
             {...formik.getFieldProps('username')}
             error={formik.touched.username && formik.errors.username ? true : false}
             helperText={formik.touched.username && formik.errors.username}
@@ -108,6 +149,26 @@ const UsersModal = ({
             type={showPassword ? 'text' : 'password'}
             id='password'
             autoComplete='current-password'
+            sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+              },
+              '& fieldset': {
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
             {...formik.getFieldProps('password')}
             error={formik.touched.password && formik.errors.password ? true : false}
             helperText={formik.touched.password && formik.errors.password}
@@ -115,6 +176,7 @@ const UsersModal = ({
               endAdornment: (
                 <InputAdornment position='end'>
                   <IconButton
+                    sx={{ color: 'white' }}
                     onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
                     edge='end'
                   >
@@ -131,7 +193,26 @@ const UsersModal = ({
             id='email'
             label='Email Address'
             autoComplete='email'
-            autoFocus
+            sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+              },
+              '& fieldset': {
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
             {...formik.getFieldProps('email')}
             error={formik.touched.email && formik.errors.email ? true : false}
             helperText={formik.touched.email && formik.errors.email}
@@ -143,7 +224,26 @@ const UsersModal = ({
             id='name'
             label='Full name'
             autoComplete='name'
-            autoFocus
+            sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+              },
+              '& fieldset': {
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
             {...formik.getFieldProps('name')}
             error={formik.touched.name && formik.errors.name ? true : false}
             helperText={formik.touched.name && formik.errors.name}
@@ -151,16 +251,59 @@ const UsersModal = ({
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label='Date of birth'
+              sx={{
+                width: '100%',
+                mt: 2,
+                '& .MuiInputBase-root': {
+                  color: 'white',
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'white',
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                },
+                '& .MuiInput-underline:before': {
+                  borderBottomColor: 'white',
+                },
+                '& .MuiPickersDay-daySelected': {
+                  backgroundColor: 'white',
+                  color: 'black',
+                },
+                '& .MuiIconButton-root': {
+                  color: 'white',
+                },
+              }}
               value={formik.values.dateOfBirth ? dayjs(formik.values.dateOfBirth) : null}
               onChange={(date) => formik.setFieldValue('dateOfBirth', date?.toISOString() ?? '')}
             />
           </LocalizationProvider>
-          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 1 }}>
-            {isLoading ? <CircularProgress size={20} /> : 'Save'}
-          </Button>
-          <Button onClick={handleClose} fullWidth variant='outlined' sx={{ mb: 2 }}>
-            Close
-          </Button>
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+              mt: 3,
+            }}
+          >
+            <Button
+              type='submit'
+              variant='contained'
+              color='success'
+              sx={{ maxWidth: '250px', width: '100%' }}
+            >
+              {isLoading ? <CircularProgress size={20} /> : 'Save'}
+            </Button>
+            <Button
+              onClick={handleClose}
+              variant='outlined'
+              color='inherit'
+              sx={{ maxWidth: '250px', width: '100%' }}
+            >
+              Close
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Modal>
@@ -170,28 +313,64 @@ const UsersModal = ({
       onClose={handleClose}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+        backgroundBlendMode: 'difference',
+      }}
     >
-      <Box
+      <Card
         sx={{
           backgroundColor: 'white',
-          boxShadow: 24,
-          padding: '2rem',
-          maxWidth: '500px',
+          maxWidth: '800px',
           width: '100%',
+          p: 4,
+          margin: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        <Typography id='modal-modal-title' variant='h6' component='h2'>
+        <Typography variant='h4' component='h2' sx={{ fontWeight: '800' }}>
           Delete User
         </Typography>
-        <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-          You are about to delete user {rowData.name}. ID: {rowData.ID} and email: {rowData.email}{' '}
-          Are you sure? This action cannot be undone!
-        </Typography>
-        <Button onClick={() => submit(rowData)} fullWidth variant='contained' sx={{ mt: 3, mb: 1 }}>
-          {isLoading ? <CircularProgress size={20} /> : 'Save'}
-        </Button>
-        <Button onClick={handleClose}>Close</Button>
-      </Box>
+        <Box sx={{ mt: 2 }}>
+          <Typography>
+            You are about to delete user <strong>{rowData.name}</strong>
+          </Typography>
+          <Typography>
+            ID: <strong>{rowData.ID}</strong> and email: <strong>{rowData.email}</strong>
+          </Typography>
+          <Typography>Are you sure? This action cannot be undone!</Typography>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+            mt: 3,
+          }}
+        >
+          <Button
+            onClick={() => submit(rowData)}
+            variant='contained'
+            color='error'
+            sx={{ maxWidth: '250px', width: '100%' }}
+          >
+            {isLoading ? <CircularProgress size={20} /> : 'Confirm'}
+          </Button>
+          <Button
+            variant='outlined'
+            onClick={handleClose}
+            sx={{ maxWidth: '250px', width: '100%' }}
+          >
+            Cancel
+          </Button>
+        </Box>
+      </Card>
     </Modal>
   );
 };
