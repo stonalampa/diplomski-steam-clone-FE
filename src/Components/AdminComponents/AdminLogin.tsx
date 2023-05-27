@@ -8,25 +8,13 @@ import {
   Avatar,
   Box,
   Button,
-  Container,
-  CssBaseline,
   TextField,
   Typography,
-  ThemeProvider,
-  createTheme,
   InputAdornment,
   IconButton,
   Card,
 } from '@mui/material';
 import { useAuthContext } from '../AuthComponents/useAuthContext';
-
-const theme = createTheme();
-theme.typography.h1 = {
-  fontSize: '1.5rem',
-  fontWeight: 500,
-  lineHeight: '1.2',
-  letterSpacing: '0.025em',
-};
 
 export default function AdminLogin() {
   const { login } = useAuthContext();

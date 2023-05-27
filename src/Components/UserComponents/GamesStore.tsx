@@ -13,8 +13,6 @@ import {
 } from '@mui/material';
 import { useGetAllGamesQuery } from '../../providers/GamesProvider';
 import { IObject } from '../Common/CommonTypes';
-import User from '../../store/user/slices/user';
-import GamesModal from '../AdminComponents/GamesModal';
 import GameModal from './GameModal';
 
 const itemsPerPage = 3;

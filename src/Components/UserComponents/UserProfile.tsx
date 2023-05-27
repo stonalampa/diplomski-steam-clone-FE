@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
@@ -21,8 +21,6 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { userState } from '../../store/user/selectors/userSelector';
 import { useGetUserDataQuery, useUpdateUserProfileMutation } from '../../providers/UsersProvider';
 import { FormInitialValues } from './UserTypes';
-import { dispatch } from '../../store/store';
-import { setUserState } from '../../store/user/slices/user';
 
 export default function UserProfile() {
   const { enqueueSnackbar } = useSnackbar();

@@ -1,5 +1,5 @@
-import { BaseQueryFn, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { BackendApi } from '../helpers/BackendApi';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { BackendApiUrl } from '../helpers/BackendApi';
 import { IObject } from '../components/Common/CommonTypes';
 
 type ResponseT = {
@@ -10,7 +10,7 @@ export const ADMIN_USERS_API_REDUCER_KEY = 'adminUsersApi';
 export const adminUsersApi = createApi({
   reducerPath: ADMIN_USERS_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
-    baseUrl: BackendApi.defaults.baseURL,
+    baseUrl: BackendApiUrl,
     prepareHeaders: (headers) => {
       const jwtToken = localStorage.getItem('accessToken');
       if (jwtToken) {
@@ -65,7 +65,7 @@ export const USERS_API_REDUCER_KEY = 'usersApi';
 export const usersApi = createApi({
   reducerPath: USERS_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
-    baseUrl: BackendApi.defaults.baseURL,
+    baseUrl: BackendApiUrl,
   }),
   tagTypes: ['Users'],
   endpoints: (builder) => ({

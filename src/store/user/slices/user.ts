@@ -1,21 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { User } from '../../StoreTypes';
 
-export interface User {
-  id: string;
-  password: string;
-  name: string;
-  email: string;
-  dateOfBirth: string;
-}
-
-const initialState: any = {};
+const initialState: User = {
+  id: '',
+  username: '',
+  password: '',
+  name: '',
+  email: '',
+  dateOfBirth: '',
+  paymentCard: {
+    cardNumber: '',
+    expDate: '',
+    cvc: 0,
+  },
+  library: [],
+  wishlist: [],
+};
 
 export const slice = createSlice({
   name: 'user',
   initialState,
   reducers: {
     setUserState: (state, action) => {
-      console.log(action.payload);
       const { ID, password, username, email, dateOfBirth, name, paymentCards } = action.payload;
       state.id = ID;
       state.password = password;
@@ -23,16 +29,16 @@ export const slice = createSlice({
       state.name = name;
       state.email = email;
       state.dateOfBirth = dateOfBirth;
-      // state.paymentCard = paymentCards[0];
+      state.paymentCard = paymentCards.length > 0 ? paymentCards[0] : initialState.paymentCard;
     },
     setLibraryAndWishlist: (state, action) => {
-      const { library, wishlist } = action.payload;
-      state.library = library;
-      state.wishlist = wishlist;
+      const { gameIds, wishlistIds } = action.payload;
+      state.library = gameIds;
+      state.wishlist = wishlistIds;
     },
   },
 });
 
-export const { setUserState } = slice.actions;
+export const { setUserState, setLibraryAndWishlist } = slice.actions;
 
 export default slice.reducer;

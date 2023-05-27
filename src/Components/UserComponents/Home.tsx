@@ -7,7 +7,7 @@ import UserProfile from './UserProfile';
 import Library from './Library';
 import GamesStore from './GamesStore';
 import { useGetUserDataQuery } from '../../providers/UsersProvider';
-import { setUserState } from '../../store/user/slices/user';
+import { setUserState, setLibraryAndWishlist } from '../../store/user/slices/user';
 import { useSelector } from 'react-redux';
 import { userId } from '../../store/authentication/selectors/authenticationSelector';
 import { dispatch } from '../../store/store';
@@ -35,9 +35,8 @@ const Home = () => {
   const id = useSelector(userId) as string;
   const { data } = useGetUserDataQuery(id);
   const { data: userLibrary } = useGetLibraryDataQuery(id);
-  console.log('🚀 ~ file: Home.tsx:37 ~ Home ~ userLibrary:', userLibrary);
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleTabChange = (event: unknown, newValue: number) => {
+  const handleTabChange = (event: React.SyntheticEvent<Element, Event>, newValue: number) => {
     setSelectedTab(newValue);
   };
 
@@ -48,7 +47,7 @@ const Home = () => {
   }, [data]);
 
   useEffect(() => {
-    if (userLibrary?.ID && data?.userID) {
+    if (userLibrary?.ID) {
       dispatch(setLibraryAndWishlist(userLibrary));
     }
   }, [userLibrary]);
@@ -58,7 +57,6 @@ const Home = () => {
       <StyledTabsContainer>
         <Tabs value={selectedTab} onChange={handleTabChange} centered>
           <StyledTab label='Store' />
-
           <StyledTab label='Wishlist' />
           <StyledTab label='Library' />
           <StyledTab label='Profile' />

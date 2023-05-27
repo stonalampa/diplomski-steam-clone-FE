@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { BackendApi } from '../helpers/BackendApi';
+import { BackendApiUrl } from '../helpers/BackendApi';
 import { IObject } from '../components/Common/CommonTypes';
 import { LoginParams } from '../components/AuthComponents/AuthTypes';
 
@@ -7,7 +7,7 @@ export const AUTHENTICATION_API_REDUCER_KEY = 'authenticationApi';
 export const authenticationApi = createApi({
   reducerPath: AUTHENTICATION_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
-    baseUrl: BackendApi.defaults.baseURL,
+    baseUrl: BackendApiUrl,
   }),
   tagTypes: ['Auth'],
   endpoints: (builder) => ({

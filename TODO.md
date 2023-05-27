@@ -1,27 +1,33 @@
 TODO:
 
-1. Dodaj username za toolbar
+CSS:
 
-1. Buying
-1. Email
-1. Wishlist
+1. Sredi games komponentu celu sa formama
+2. Sredi register imas formu
+3. Sredi login, dodaj samo background kao i admin i isti oblik ali belo ostavi
+4. Dodaj formu za user sredi
+5. Sredi formu za reset
+6. Sredi landing page admin, samo ga ubaci na sredi neki kurac
 
-1. Ista komponenta za wishlist i store
-1. Druga komponenta za libray + download
+FUNC:
 
-1. Komentari + da ne moze vise od 1 vidi to na kraju kako
+1. Dodaj samo wishlist add/remove
+2. Dodaj library listu
+3. Dodaj download
+4. Dodaj buy
+5. Dodaj buy email
 
-Vikend:
-
-- Fix form update after user profile refresh
-
-- Testiraj sve
-
+- Test all
+- Resi bug sa edit user
+- Mozda i validacija fieldova jos
+- CSS ostatak sa milicom
 - Refaktorisi tipove i slicno
-- DODAJ SVIMA VALIDACIJU ZA SVE INPUT PROPERTIJE DETALJNIJE ZA NUMBERS I TAKO TO
 - Dodaj za tabele header boldovan
 - Dodaj za tabele boolean -> label
 - Sredi lint
+
+??? Mozda dodaj i add comment
+
 <!-- Pop prosledi ga samo na payment i download sa odgovarajucim podacima
 import React, { useState } from 'react';
 import PopupModal from '../Common/PopupModal';

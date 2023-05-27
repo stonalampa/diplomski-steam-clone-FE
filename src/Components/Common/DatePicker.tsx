@@ -1,6 +1,6 @@
 import { DatePicker, DatePickerProps } from '@mui/x-date-pickers/DatePicker';
 import { useField, useFormikContext } from 'formik';
-import React from 'react';
+
 type Props<TDate> = {
   name: string;
 } & Omit<DatePickerProps<TDate>, 'onChange' | 'value'>;

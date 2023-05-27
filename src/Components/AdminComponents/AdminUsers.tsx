@@ -5,7 +5,7 @@ import {
   useGetAllUsersQuery,
   useUpdateUserMutation,
 } from '../../providers/UsersProvider';
-import { Box, Button, Card, Container, Grid } from '@mui/material';
+import { Box, Button, Card } from '@mui/material';
 import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 

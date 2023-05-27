@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface AuthenticationState {
-  jwtToken: string | undefined;
-  isAdmin: boolean | undefined;
-  userId: string | undefined;
-}
+import { AuthenticationState } from '../../StoreTypes';
 
 const initialState: AuthenticationState = {
   jwtToken: '',

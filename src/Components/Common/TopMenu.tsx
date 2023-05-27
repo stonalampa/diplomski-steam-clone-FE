@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
-import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import { AccountCircle, Menu as MenuIcon } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 
 import { useAuthContext } from '../AuthComponents/useAuthContext';
+import { userState } from '../../store/user/selectors/userSelector';
 
 const RootAppBar = styled(AppBar)(() => ({
   flexGrow: 1,
@@ -23,13 +25,14 @@ export default function TopMenu() {
   const { logout } = useAuthContext();
   const { isAuthenticated } = useAuthContext();
   const isAdmin = window.location.pathname.includes('admin');
+  const navigate = useNavigate();
+  const user = useSelector(userState);
   const [anchorElMenu, setAnchorElMenu] = useState(null);
   const [anchorElAvatar, setAnchorElAvatar] = useState(null);
-
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isAvatarMenuOpen, setIsAvatarMenuOpen] = useState<boolean>(false);
-  const navigate = useNavigate();
 
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenu = (event: any) => {
     setAnchorElMenu(event.currentTarget);
     setIsMenuOpen(!isMenuOpen);
@@ -40,6 +43,7 @@ export default function TopMenu() {
     setIsMenuOpen(false);
   };
 
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenuAvatar = (event: any) => {
     setAnchorElAvatar(event.currentTarget);
     setIsAvatarMenuOpen(!isAvatarMenuOpen);
@@ -60,7 +64,8 @@ export default function TopMenu() {
             </IconButton>
           )}
           <Title variant='h6'>Steam clone {isAdmin ? 'admin' : ''} </Title>
-          <div>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography>{isAdmin ? 'Admin' : user.name}</Typography>
             <IconButton
               aria-label='account of current user'
               aria-controls='menu-appbar'
@@ -80,19 +85,19 @@ export default function TopMenu() {
             >
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
-            <Menu
-              id='menu-appbar2'
-              anchorEl={anchorElMenu}
-              open={isMenuOpen}
-              onClose={handleMenuClose}
-              onClick={handleMenu}
-              MenuListProps={{ 'aria-labelledby': 'account-menu' }}
-            >
-              <MenuItem onClick={() => navigate('/admin/')}>Home</MenuItem>
-              <MenuItem onClick={() => navigate('/admin/users')}>Users</MenuItem>
-              <MenuItem onClick={() => navigate('/admin/games')}>Games</MenuItem>
-            </Menu>
-          </div>
+          </Box>
+          <Menu
+            id='menu-appbar2'
+            anchorEl={anchorElMenu}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+            onClick={handleMenu}
+            MenuListProps={{ 'aria-labelledby': 'account-menu' }}
+          >
+            <MenuItem onClick={() => navigate('/admin/')}>Home</MenuItem>
+            <MenuItem onClick={() => navigate('/admin/users')}>Users</MenuItem>
+            <MenuItem onClick={() => navigate('/admin/games')}>Games</MenuItem>
+          </Menu>
         </Toolbar>
       </RootAppBar>
     </RootDiv>

@@ -16,6 +16,7 @@ import { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import YouTube from 'react-youtube';
 import CloseIcon from '@mui/icons-material/Close';
+import { IObject } from '../Common/CommonTypes';
 
 const ModalContentWrapper = styled(Box)(() => ({
   maxHeight: 900,
@@ -51,7 +52,7 @@ const GameModal = ({
   handleClose,
 }: {
   isOpen: boolean;
-  game?: any;
+  game?: IObject;
   handleClose: () => void;
 }) => {
   const playerRef = useRef<HTMLIFrameElement | null>(null);
@@ -83,9 +84,13 @@ const GameModal = ({
     }
   };
 
-  // const handleBuying = () => {};
+  const handleBuying = () => {
+    console.log('xd');
+  };
 
-  // const handleWishlist = () => {};
+  const handleWishlist = () => {
+    console.log('xd');
+  };
 
   const getVideoId = (url: string) => {
     const regex =
@@ -96,9 +101,9 @@ const GameModal = ({
 
   useEffect(() => {
     if (isOpen) {
-      setTrailer(game.screenshots[0]);
-      setCover(game.screenshots[1]);
-      setImages(game.screenshots.slice(2));
+      setTrailer(game?.screenshots[0]);
+      setCover(game?.screenshots[1]);
+      setImages(game?.screenshots.slice(2));
 
       const videoId = getVideoId(trailer);
       const iframe = document.createElement('iframe');
@@ -126,7 +131,7 @@ const GameModal = ({
               <CardMedia
                 component='img'
                 src={cover}
-                alt={game.title}
+                alt={game?.title}
                 sx={{ width: 250, height: 400 }}
               />
             </Card>
@@ -135,35 +140,35 @@ const GameModal = ({
           <Grid item xs={12} sm={6}>
             <Box display='flex' flexDirection='column' height='100%'>
               <Typography variant='h4' gutterBottom>
-                {game.title}
+                {game?.title}
               </Typography>
               <Typography variant='subtitle1' gutterBottom>
-                Developer: {game.developer}
+                Developer: {game?.developer}
               </Typography>
               <Typography variant='subtitle1' gutterBottom>
-                Publisher: {game.publisher}
+                Publisher: {game?.publisher}
               </Typography>
               <Typography variant='subtitle1' gutterBottom>
-                Score: {(game.score / game.numberOfScores).toFixed(2)}
+                Score: {(game?.score / game?.numberOfScores).toFixed(2)}
               </Typography>
               <Typography
-                variant={game.discount !== 0 ? 'body1' : 'inherit'}
+                variant={game?.discount !== 0 ? 'body1' : 'inherit'}
                 component='span'
-                style={{ textDecoration: game.discount !== 0 ? 'line-through' : 'none' }}
+                style={{ textDecoration: game?.discount !== 0 ? 'line-through' : 'none' }}
                 gutterBottom
               >
-                Price: ${game.price}
+                Price: ${game?.price}
               </Typography>
-              {game.discount !== 0 && (
+              {game?.discount !== 0 && (
                 <Typography variant='body1' component='span' gutterBottom>
-                  New price: ${game.price - game.discount}
+                  New price: ${game?.price - game?.discount}
                 </Typography>
               )}
               <Typography variant='subtitle1' gutterBottom>
-                Publisher: {game.publisher}
+                Publisher: {game?.publisher}
               </Typography>
               <Typography variant='body1' gutterBottom>
-                {game.description}
+                {game?.description}
               </Typography>
               <Divider sx={{ my: 2 }} />
               <Typography variant='h6' gutterBottom>
@@ -240,6 +245,3 @@ const GameModal = ({
 };
 
 export default GameModal;
-
-// kada se loaduje pokupi library i sa tim imas i wishlist i imas owned
-// od toga samo proveri za ove dugmice if includes
