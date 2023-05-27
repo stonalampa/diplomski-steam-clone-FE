@@ -21,7 +21,7 @@ Vikend:
 - DODAJ SVIMA VALIDACIJU ZA SVE INPUT PROPERTIJE DETALJNIJE ZA NUMBERS I TAKO TO
 - Dodaj za tabele header boldovan
 - Dodaj za tabele boolean -> label
-
+- Sredi lint
 <!-- Pop prosledi ga samo na payment i download sa odgovarajucim podacima
 import React, { useState } from 'react';
 import PopupModal from '../Common/PopupModal';
