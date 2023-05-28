@@ -3,9 +3,15 @@ export interface IObject extends Object {
   [key: string]: any;
 }
 
+export enum PopupModalType {
+  Download = 'DOWNLOAD',
+  Buy = 'BUY',
+}
+
 export interface PopupModalProps {
   text: string;
   open: boolean;
   onClose: () => void;
   timeout?: number;
+  type: PopupModalType;
 }

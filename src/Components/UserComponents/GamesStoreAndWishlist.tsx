@@ -11,27 +11,32 @@ import {
   Box,
   TextField,
 } from '@mui/material';
-import { useGetAllGamesQuery } from '../../providers/GamesProvider';
 import { IObject } from '../Common/CommonTypes';
 import GameModal from './GameModal';
+import { wishlistState } from '../../store/user/selectors/userSelector';
+import { useSelector } from 'react-redux';
+import { GamesStoreAndWishlistProps } from './UserTypes';
 
 const itemsPerPage = 3;
 
-const GamesStore = () => {
-  const { data } = useGetAllGamesQuery();
+const GamesStoreAndWishlist = ({ isWishlist, gamesData }: GamesStoreAndWishlistProps) => {
+  const wishlist = useSelector(wishlistState);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedItem, setSelectedItem] = useState<IObject>({});
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [wishlistData, setWishlistData] = useState<IObject[]>([]);
 
-  const filteredItems = data?.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const filteredItems = isWishlist
+    ? wishlistData?.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()))
+    : gamesData?.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const paginatedItems = filteredItems
-    ? filteredItems?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-    : data?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    ? filteredItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+    : isWishlist
+    ? wishlistData?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+    : gamesData?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handleItemClick = (item: IObject) => {
     setIsOpen(true);
@@ -48,12 +53,18 @@ const GamesStore = () => {
   };
 
   useEffect(() => {
-    if (filteredItems) {
-      setTotalPages(Math.ceil(filteredItems.length / itemsPerPage));
-    } else if (data && data.length > 0) {
-      setTotalPages(Math.ceil(data.length / itemsPerPage));
+    if (isWishlist && wishlistData && wishlistData.length > 0) {
+      setTotalPages(Math.ceil(wishlistData.length / itemsPerPage));
+    } else if (!isWishlist && gamesData && gamesData.length > 0) {
+      setTotalPages(Math.ceil(gamesData.length / itemsPerPage));
     }
-  }, [data, filteredItems]);
+  }, [wishlistData, gamesData, isWishlist]);
+
+  useEffect(() => {
+    if (isWishlist) {
+      setWishlistData(gamesData?.filter((item) => wishlist?.includes(item.ID)) || []);
+    }
+  }, [gamesData, wishlist, isWishlist]);
 
   return (
     <Container>
@@ -129,4 +140,4 @@ const GamesStore = () => {
   );
 };
 
-export default GamesStore;
+export default GamesStoreAndWishlist;

@@ -17,6 +17,8 @@ import Carousel from 'react-material-ui-carousel';
 import YouTube from 'react-youtube';
 import CloseIcon from '@mui/icons-material/Close';
 import { IObject } from '../Common/CommonTypes';
+import { useSelector } from 'react-redux';
+import { wishlistState } from '../../store/user/selectors/userSelector';
 
 const ModalContentWrapper = styled(Box)(() => ({
   maxHeight: 900,
@@ -64,6 +66,7 @@ const GameModal = ({
   const [images, setImages] = useState<Array<string>>([]);
   const [owned, setOwned] = useState<boolean>(false);
   const [inWishlist, setInWishlist] = useState<boolean>(false);
+  const wishList = useSelector(wishlistState);
 
   const handleOpenModal = () => {
     setSelectedImage(images[slideIndex]);
@@ -73,6 +76,10 @@ const GameModal = ({
   const handleCloseModal = () => {
     setImageDialogOpen(false);
   };
+
+  useEffect(() => {
+    wishList.includes(game?.id) ? setInWishlist(true) : setInWishlist(false);
+  }, [wishList]);
 
   const handleSlideChange = (newIndex?: number, oldIndex?: number) => {
     if (newIndex === images.length - 1 && oldIndex === 0) {

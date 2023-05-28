@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Button, Modal, Typography, styled } from '@mui/material';
-import { PopupModalProps } from './CommonTypes';
+import { Button, CircularProgress, Modal, Typography, styled } from '@mui/material';
+import { PopupModalProps, PopupModalType } from './CommonTypes';
 
 const ModalContainer = styled('div')`
   display: flex;
@@ -20,7 +20,43 @@ const CloseButton = styled(Button)`
   margin-top: 1rem;
 `;
 
-const PopupModal = ({ text, open, timeout, onClose }: PopupModalProps) => {
+const PopupModal = ({ text, open, timeout, type, onClose }: PopupModalProps) => {
+  let typographyElement;
+  let closeButtonElement;
+  switch (type) {
+    case PopupModalType.Buy:
+      typographyElement = (
+        <Typography variant='h6' component='div'>
+          Success: {text}
+        </Typography>
+      );
+      closeButtonElement = (
+        <CloseButton variant='contained' color='primary' onClick={onClose}>
+          Close
+        </CloseButton>
+      );
+      break;
+    case PopupModalType.Download:
+      typographyElement = (
+        <Typography variant='h6' component='div' color='warning'>
+          Your download of {text} will start shortly!
+        </Typography>
+      );
+      closeButtonElement = null;
+      break;
+    default:
+      typographyElement = (
+        <Typography variant='h6' component='div'>
+          {text}
+        </Typography>
+      );
+      closeButtonElement = (
+        <CloseButton variant='contained' color='primary' onClick={onClose}>
+          Close
+        </CloseButton>
+      );
+  }
+
   useEffect(() => {
     if (open && timeout) {
       const timer = setTimeout(onClose, timeout);
@@ -31,12 +67,9 @@ const PopupModal = ({ text, open, timeout, onClose }: PopupModalProps) => {
   return (
     <Modal open={open} onClose={onClose} component={ModalContainer}>
       <ModalContent>
-        <Typography variant='h6' component='div'>
-          {text}
-        </Typography>
-        <CloseButton variant='contained' color='primary' onClick={onClose}>
-          OK
-        </CloseButton>
+        {typographyElement}
+        <CircularProgress size={20} />
+        {closeButtonElement}
       </ModalContent>
     </Modal>
   );

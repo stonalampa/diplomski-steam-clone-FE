@@ -7,6 +7,7 @@ import { useSnackbar } from 'notistack';
 import {
   Box,
   Button,
+  Card,
   CircularProgress,
   Container,
   IconButton,
@@ -70,8 +71,8 @@ export default function UserProfile() {
   });
 
   return (
-    <Container>
-      <Box
+    <Box sx={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
+      <Card
         sx={{
           backgroundColor: 'white',
           boxShadow: 24,
@@ -107,6 +108,26 @@ export default function UserProfile() {
             id='username'
             label='Username'
             autoComplete='username'
+            sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+              },
+              '& fieldset': {
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
             {...formik.getFieldProps('username')}
             error={formik.touched.username && formik.errors.username ? true : false}
             helperText={formik.touched.username && formik.errors.username}
@@ -124,10 +145,27 @@ export default function UserProfile() {
             error={formik.touched.password && formik.errors.password ? true : false}
             helperText={formik.touched.password && formik.errors.password}
             disabled={!isEditing}
+            sx={{
+              '& fieldset': {
+                borderColor: 'white',
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
                   <IconButton
+                    sx={{ color: 'white' }}
                     onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
                     edge='end'
                   >
@@ -153,6 +191,7 @@ export default function UserProfile() {
               endAdornment: (
                 <InputAdornment position='end'>
                   <IconButton
+                    sx={{ color: 'white' }}
                     onClick={() => setShowConfirmPassword((prevShowPassword) => !prevShowPassword)}
                     edge='end'
                   >
@@ -198,7 +237,7 @@ export default function UserProfile() {
             {isLoading ? <CircularProgress size={20} /> : 'Save'}
           </Button>
         </Box>
-      </Box>
-    </Container>
+      </Card>
+    </Box>
   );
 }

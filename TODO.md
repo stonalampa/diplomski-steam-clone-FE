@@ -12,10 +12,8 @@ CSS:
 FUNC:
 
 1. Dodaj samo wishlist add/remove
-2. Dodaj library listu
-3. Dodaj download
-4. Dodaj buy
-5. Dodaj buy email
+2. Dodaj buy
+3. Dodaj buy email
 
 - Test all
 - Resi bug sa edit user
@@ -27,34 +25,3 @@ FUNC:
 - Sredi lint
 
 ??? Mozda dodaj i add comment
-
-<!-- Pop prosledi ga samo na payment i download sa odgovarajucim podacima
-import React, { useState } from 'react';
-import PopupModal from '../Common/PopupModal';
-import { Button } from '@mui/material';
-
-export default function Home() {
-const [open, setOpen] = useState(false);
-
-const handleOpen = () => {
-setOpen(true);
-};
-
-const handleClose = () => {
-setOpen(false);
-};
-
-return (
-
-<div>
-<Button onClick={handleOpen}>Open Modal</Button>
-<PopupModal text='' open={open} onClose={handleClose} timeout={3000} />
-</div>
-);
-} -->
-
-<!-- Svi podaci,
-Trailer sa svim slikama
-Image ovaj samo
-Add to wishlist
-Buy -->
