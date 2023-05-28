@@ -12,6 +12,7 @@ export interface User {
   email: string;
   dateOfBirth: string;
   paymentCard: PaymentCard;
+  libraryId: string;
   library: string[];
   wishlist: string[];
 }

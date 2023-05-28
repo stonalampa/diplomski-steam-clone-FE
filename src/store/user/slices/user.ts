@@ -13,6 +13,7 @@ const initialState: User = {
     expDate: '',
     cvc: 0,
   },
+  libraryId: '',
   library: [],
   wishlist: [],
 };
@@ -32,7 +33,8 @@ export const slice = createSlice({
       state.paymentCard = paymentCards.length > 0 ? paymentCards[0] : initialState.paymentCard;
     },
     setLibraryAndWishlist: (state, action) => {
-      const { gameIds, wishlistIds } = action.payload;
+      const { ID, gameIds, wishlistIds } = action.payload;
+      state.libraryId = ID;
       state.library = gameIds;
       state.wishlist = wishlistIds;
     },

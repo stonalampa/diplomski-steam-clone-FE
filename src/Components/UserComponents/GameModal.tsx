@@ -18,7 +18,8 @@ import YouTube from 'react-youtube';
 import CloseIcon from '@mui/icons-material/Close';
 import { IObject } from '../Common/CommonTypes';
 import { useSelector } from 'react-redux';
-import { wishlistState } from '../../store/user/selectors/userSelector';
+import { libraryState, userState, wishlistState } from '../../store/user/selectors/userSelector';
+import { useAddGameToLibraryMutation } from '../../providers/LibraryProvider';
 
 const ModalContentWrapper = styled(Box)(() => ({
   maxHeight: 900,
@@ -58,6 +59,7 @@ const GameModal = ({
   handleClose: () => void;
 }) => {
   const playerRef = useRef<HTMLIFrameElement | null>(null);
+  const [addGameToLibrary] = useAddGameToLibraryMutation();
   const [slideIndex, setSlideIndex] = useState<number>(0);
   const [imageDialogOpen, setImageDialogOpen] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -66,8 +68,9 @@ const GameModal = ({
   const [images, setImages] = useState<Array<string>>([]);
   const [owned, setOwned] = useState<boolean>(false);
   const [inWishlist, setInWishlist] = useState<boolean>(false);
-  const wishList = useSelector(wishlistState);
-
+  const user = useSelector(userState);
+  const userLibrary = useSelector(libraryState);
+  const userWishlist = useSelector(wishlistState);
   const handleOpenModal = () => {
     setSelectedImage(images[slideIndex]);
     setImageDialogOpen(true);
@@ -78,8 +81,11 @@ const GameModal = ({
   };
 
   useEffect(() => {
-    wishList.includes(game?.id) ? setInWishlist(true) : setInWishlist(false);
-  }, [wishList]);
+    if (game?.ID) {
+      setOwned(userLibrary?.includes(game?.ID));
+      setInWishlist(userWishlist.includes(game?.ID) ?? false);
+    }
+  }, [game]);
 
   const handleSlideChange = (newIndex?: number, oldIndex?: number) => {
     if (newIndex === images.length - 1 && oldIndex === 0) {
@@ -91,12 +97,25 @@ const GameModal = ({
     }
   };
 
-  const handleBuying = () => {
-    console.log('xd');
-  };
-
-  const handleWishlist = () => {
-    console.log('xd');
+  const handleBuyingAndWishlist = async (isWishlist: boolean, remove: boolean) => {
+    console.log(isWishlist, remove, 'OVDE JE BUY');
+    const response = await addGameToLibrary({
+      body: {
+        ID: user?.libraryId,
+        userId: user?.id,
+        gameIds: isWishlist ? [] : [game?.ID],
+        wishlistIds: isWishlist ? [game?.ID] : [],
+      },
+      email: user?.email,
+      remove,
+    });
+    if ('error' in response) {
+      // error snackbar
+    } else {
+      //true
+      // neka iskoci popup i kaze thank you for buying
+      // email sent to your address
+    }
   };
 
   const getVideoId = (url: string) => {
@@ -221,11 +240,11 @@ const GameModal = ({
               </Card>
             </Box>
             <Grid item>
-              <Button onClick={handleWishlist}>
+              <Button onClick={() => handleBuyingAndWishlist(true, inWishlist)} disabled={owned}>
                 {inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
               </Button>
-              <Button disabled={owned} onClick={handleBuying}>
-                Buy
+              <Button disabled={owned} onClick={() => handleBuyingAndWishlist(false, false)}>
+                {owned ? 'Owned' : 'Buy'}
               </Button>
             </Grid>
           </Grid>

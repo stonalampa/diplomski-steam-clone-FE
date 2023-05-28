@@ -39,7 +39,7 @@ const PopupModal = ({ text, open, timeout, type, onClose }: PopupModalProps) => 
     case PopupModalType.Download:
       typographyElement = (
         <Typography variant='h6' component='div' color='warning'>
-          Your download of {text} will start shortly!
+          Your download of <strong>{text}</strong> will start shortly!
         </Typography>
       );
       closeButtonElement = null;

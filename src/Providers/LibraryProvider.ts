@@ -23,7 +23,14 @@ export const libraryApi = createApi({
         method: 'GET',
       }),
     }),
+    addGameToLibrary: builder.mutation<{ body: IObject; email: string; remove: boolean }, IObject>({
+      query: ({ body, email, remove }) => ({
+        url: `/library?email=${email}&remove=${remove}`,
+        method: 'PUT',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetLibraryDataQuery } = libraryApi;
+export const { useGetLibraryDataQuery, useAddGameToLibraryMutation } = libraryApi;
