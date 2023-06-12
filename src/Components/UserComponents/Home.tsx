@@ -23,12 +23,14 @@ const StyledPageContainer = styled(Box)(() => ({
 
 const StyledTabsContainer = styled(Box)(() => ({
   width: '500px',
+  color: 'white',
 }));
 
 const StyledTab = styled(Tab)(({ theme }) => ({
   fontWeight: 'bold',
+  color: 'white',
   '&.Mui-selected': {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
   },
 }));
 
@@ -64,8 +66,8 @@ const Home = () => {
   }, [userLibrary, gamesData]);
 
   return (
-    <StyledPageContainer>
-      <StyledTabsContainer>
+    <StyledPageContainer sx={{ p: 2 }}>
+      <StyledTabsContainer sx={{ width: '80%', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
         <Tabs value={selectedTab} onChange={handleTabChange} centered>
           <StyledTab label='Store' />
           <StyledTab label='Wishlist' />

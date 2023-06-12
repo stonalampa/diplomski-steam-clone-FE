@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import { IObject, PopupModalType } from '../Common/CommonTypes';
-import { Avatar, Button, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+} from '@mui/material';
 import PopupModal from '../Common/PopupModal';
 
 const Library = ({ libraryGames }: { libraryGames: Array<IObject> }) => {
@@ -12,26 +21,34 @@ const Library = ({ libraryGames }: { libraryGames: Array<IObject> }) => {
   };
 
   return (
-    <List sx={{ width: '100%', maxWidth: 360, backgroundColor: 'white' }}>
-      {libraryGames.map((item, index) => (
-        <ListItem key={index}>
-          <ListItemAvatar>
-            <Avatar alt={item.title} src={item.screenshots[1]} />
-          </ListItemAvatar>
-          <ListItemText primary={item.title} secondary={item.description} />
-          <Button variant='contained' color='primary' onClick={() => handleOpen(item.title)}>
-            Download
-          </Button>
-        </ListItem>
-      ))}
-      <PopupModal
-        text={selectedItem}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-        timeout={3000}
-        type={PopupModalType.Download}
-      ></PopupModal>
-    </List>
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <List sx={{ width: '100%', maxWidth: 700 }}>
+        {libraryGames.map((item, index) => (
+          <Card sx={{ backgroundColor: 'rgba(265,265,265, 0.6)', mb: 2 }}>
+            <ListItem key={index}>
+              <ListItemAvatar>
+                <Avatar alt={item.title} src={item.screenshots[1]} />
+              </ListItemAvatar>
+              <Box sx={{ maxHeight: '100px' }}>
+                <ListItemText primary={item.title} secondary={item.description} />
+              </Box>
+              <Box sx={{ display: 'block' }}>
+                <Button variant='contained' color='success' onClick={() => handleOpen(item.title)}>
+                  Download
+                </Button>
+              </Box>
+            </ListItem>
+          </Card>
+        ))}
+        <PopupModal
+          text={selectedItem}
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+          timeout={3000}
+          type={PopupModalType.Download}
+        ></PopupModal>
+      </List>
+    </Box>
   );
 };
 

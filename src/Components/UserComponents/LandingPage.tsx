@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, CardMedia, Container, Typography } from '@mui/material';
+import { Box, Button, Card, CardMedia, Container, Typography } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 
 import { useGetGamesQuery } from '../../providers/GamesProvider';
@@ -28,29 +28,43 @@ export const LandingPage = () => {
 
   return (
     { isLoading } && (
-      <Container>
-        <Typography variant='h4' component='h1'>
-          Welcome to the Steam clone
-        </Typography>
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={() => {
-            navigate('login');
+      <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Card
+          sx={{
+            width: '100%',
+            p: 2,
+            mt: 4,
+            backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+            color: 'white',
           }}
         >
-          Sign In
-        </Button>
-        <Button
-          variant='contained'
-          color='secondary'
-          onClick={() => {
-            navigate('register');
-          }}
-        >
-          Register
-        </Button>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+            <Button
+              sx={{ mr: 2 }}
+              variant='contained'
+              color='primary'
+              onClick={() => {
+                navigate('login');
+              }}
+            >
+              Sign In
+            </Button>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => {
+                navigate('register');
+              }}
+            >
+              Register
+            </Button>
+          </Box>
+          <Typography variant='h4' component='h1' textAlign={'center'} sx={{ mb: 3 }}>
+            Welcome to the Steam clone
+          </Typography>
+        </Card>
         <Carousel
+          sx={{ height: '70vh', maxWidth: '430px', width: '100%', mt: 4 }}
           autoPlay={false}
           index={slideIndex}
           onChange={handleSlideChange}
@@ -58,8 +72,13 @@ export const LandingPage = () => {
           navButtonsAlwaysVisible
         >
           {images?.map((image, index) => (
-            <Card key={index}>
-              <CardMedia component='img' image={image} alt={`Image ${index + 1}`} />
+            <Card key={index} sx={{ height: '70vh', display: 'flex', alignItems: 'center' }}>
+              <CardMedia
+                component='img'
+                image={image}
+                alt={`Image ${index + 1}`}
+                sx={{ height: '100%', objectFit: 'contain', width: 'auto' }}
+              />
             </Card>
           ))}
         </Carousel>

@@ -142,113 +142,129 @@ const GameModal = ({
   }, [isOpen]);
 
   return isOpen ? (
-    <Modal open={isOpen}>
+    <Modal open={isOpen} sx={{ display: 'flex', justifyContent: 'center' }}>
       <ModalContentWrapper
         sx={{
           backgroundColor: 'white',
           boxShadow: 24,
           padding: '2rem',
-          width: '100%',
+          width: '80%',
+          backgroundColor: 'rgba(265,265,265,0.9)',
         }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Card>
-              <CardMedia
-                component='img'
-                src={cover}
-                alt={game?.title}
-                sx={{ width: 250, height: 400 }}
-              />
-            </Card>
-            <Button onClick={handleClose}>Close</Button>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Box display='flex' flexDirection='column' height='100%'>
-              <Typography variant='h4' gutterBottom>
-                {game?.title}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+          <Box>
+            <Button onClick={handleClose} color='error' variant='outlined'>
+              Close
+            </Button>
+          </Box>
+          <Box>
+            <Button
+              onClick={() => handleBuyingAndWishlist(true, inWishlist)}
+              disabled={owned}
+              color={inWishlist ? 'error' : 'success'}
+            >
+              {inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+            </Button>
+            <Button
+              disabled={owned}
+              onClick={() => handleBuyingAndWishlist(false, false)}
+              variant='contained'
+              color='success'
+            >
+              {owned ? 'Owned' : 'Buy'}
+            </Button>
+          </Box>
+        </Box>
+        <Box sx={{ display: 'flex' }}>
+          <CardMedia
+            component='img'
+            src={cover}
+            alt={game?.title}
+            sx={{ width: 250, height: 400 }}
+          />
+          <Box display='flex' flexDirection='column' height='100%' sx={{ pl: 3 }}>
+            <Typography variant='h4' gutterBottom>
+              {game?.title}
+            </Typography>
+            <Typography variant='subtitle1' gutterBottom>
+              Developer: {game?.developer}
+            </Typography>
+            <Typography variant='subtitle1' gutterBottom>
+              Publisher: {game?.publisher}
+            </Typography>
+            <Typography variant='subtitle1' gutterBottom>
+              Score: {(game?.score / game?.numberOfScores).toFixed(2)}
+            </Typography>
+            <Typography
+              variant={game?.discount !== 0 ? 'body1' : 'inherit'}
+              component='span'
+              style={{ textDecoration: game?.discount !== 0 ? 'line-through' : 'none' }}
+              gutterBottom
+            >
+              Price: ${game?.price}
+            </Typography>
+            {game?.discount !== 0 && (
+              <Typography variant='body1' component='span' gutterBottom>
+                New price: ${game?.price - game?.discount}
               </Typography>
-              <Typography variant='subtitle1' gutterBottom>
-                Developer: {game?.developer}
-              </Typography>
-              <Typography variant='subtitle1' gutterBottom>
-                Publisher: {game?.publisher}
-              </Typography>
-              <Typography variant='subtitle1' gutterBottom>
-                Score: {(game?.score / game?.numberOfScores).toFixed(2)}
-              </Typography>
-              <Typography
-                variant={game?.discount !== 0 ? 'body1' : 'inherit'}
-                component='span'
-                style={{ textDecoration: game?.discount !== 0 ? 'line-through' : 'none' }}
-                gutterBottom
+            )}
+            <Typography variant='subtitle1' gutterBottom>
+              Publisher: {game?.publisher}
+            </Typography>
+            <Typography variant='body1' gutterBottom>
+              {game?.description}
+            </Typography>
+          </Box>
+        </Box>
+
+        <Divider sx={{ my: 2 }} />
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+          <Box>
+            <Typography variant='h6' gutterBottom>
+              Screenshots
+            </Typography>
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              gap={2}
+              width={800}
+              height={400}
+              onClick={handleOpenModal}
+            >
+              <Carousel
+                autoPlay={true}
+                index={slideIndex}
+                onChange={handleSlideChange}
+                animation='slide'
+                navButtonsAlwaysVisible={false}
+                sx={{ width: 800, height: 400 }}
+                stopAutoPlayOnHover={true}
+                interval={3000}
               >
-                Price: ${game?.price}
-              </Typography>
-              {game?.discount !== 0 && (
-                <Typography variant='body1' component='span' gutterBottom>
-                  New price: ${game?.price - game?.discount}
-                </Typography>
-              )}
-              <Typography variant='subtitle1' gutterBottom>
-                Publisher: {game?.publisher}
-              </Typography>
-              <Typography variant='body1' gutterBottom>
-                {game?.description}
-              </Typography>
-              <Divider sx={{ my: 2 }} />
-              <Typography variant='h6' gutterBottom>
-                Screenshots
-              </Typography>
-              <Box
-                display='flex'
-                flexDirection='row'
-                alignItems='center'
-                gap={2}
-                width={400}
-                height={400}
-                onClick={handleOpenModal}
-              >
-                <Carousel
-                  autoPlay={true}
-                  index={slideIndex}
-                  onChange={handleSlideChange}
-                  animation='slide'
-                  navButtonsAlwaysVisible={false}
-                  sx={{ width: 400, height: 400 }}
-                  stopAutoPlayOnHover={true}
-                  interval={3000}
-                >
-                  {images.map((screenshot: string, index: number) => (
-                    <Card key={index} sx={{ width: 400, height: 400 }}>
-                      <CardMedia
-                        sx={{ width: 400, height: 400 }}
-                        component='img'
-                        src={screenshot}
-                        alt={`Screenshot ${index + 1}`}
-                      />
-                    </Card>
-                  ))}
-                </Carousel>
-              </Box>
-              <Divider sx={{ my: 2 }} />
-              <Typography variant='h6' gutterBottom>
-                Trailer
-              </Typography>
-              <Card>
-                <YouTube videoId={getVideoId(trailer)} opts={videoOpts} />
-              </Card>
+                {images.map((screenshot: string, index: number) => (
+                  <Card key={index} sx={{ width: 800, height: 400 }}>
+                    <CardMedia
+                      sx={{ width: 800, height: 400 }}
+                      component='img'
+                      src={screenshot}
+                      alt={`Screenshot ${index + 1}`}
+                    />
+                  </Card>
+                ))}
+              </Carousel>
             </Box>
-            <Grid item>
-              <Button onClick={() => handleBuyingAndWishlist(true, inWishlist)} disabled={owned}>
-                {inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
-              </Button>
-              <Button disabled={owned} onClick={() => handleBuyingAndWishlist(false, false)}>
-                {owned ? 'Owned' : 'Buy'}
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
+          </Box>
+          <Box>
+            <Typography variant='h6' gutterBottom>
+              Trailer
+            </Typography>
+            <Card>
+              <YouTube videoId={getVideoId(trailer)} opts={videoOpts} />
+            </Card>
+          </Box>
+        </Box>
         <Dialog open={imageDialogOpen} onClose={handleCloseModal} fullWidth>
           <IconButton
             aria-label='close'

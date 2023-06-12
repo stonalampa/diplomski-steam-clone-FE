@@ -1,5 +1,6 @@
 TODO:
 
+\*Mora
 CSS:
 
 1. Sredi games komponentu celu sa formama
@@ -11,17 +12,20 @@ CSS:
 
 FUNC:
 
-1. Dodaj samo wishlist add/remove
-2. Dodaj buy
-3. Dodaj buy email
+1. Update na wishlist/buy
+2. Dodaj error handling i notifcation na buy, add/remove
+3. Sredi bug
+4. CSS
 
 - Test all
-- Resi bug sa edit user
-- Mozda i validacija fieldova jos
 - CSS ostatak sa milicom
+
+\* Trebalo bi
+
 - Refaktorisi tipove i slicno
 - Dodaj za tabele header boldovan
 - Dodaj za tabele boolean -> label
 - Sredi lint
 
+\* Mozda
 ??? Mozda dodaj i add comment

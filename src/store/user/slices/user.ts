@@ -30,7 +30,8 @@ export const slice = createSlice({
       state.name = name;
       state.email = email;
       state.dateOfBirth = dateOfBirth;
-      state.paymentCard = paymentCards.length > 0 ? paymentCards[0] : initialState.paymentCard;
+      state.paymentCard =
+        paymentCards && paymentCards.length > 0 ? paymentCards[0] : initialState.paymentCard;
     },
     setLibraryAndWishlist: (state, action) => {
       const { ID, gameIds, wishlistIds } = action.payload;

@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CircularProgress, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
 
@@ -36,30 +36,75 @@ const ResetPassword = () => {
   });
 
   return (
-    <Box component='form' onSubmit={formik.handleSubmit} noValidate sx={{ mt: 3 }}>
-      <Typography id='modal-modal-title' variant='h6' component='h2'>
-        Reset password
-      </Typography>
-      <TextField
-        margin='normal'
-        required
-        fullWidth
-        id='email'
-        label='Email Address'
-        autoComplete='email'
-        {...formik.getFieldProps('email')}
-        error={formik.touched.email && formik.errors.email ? true : false}
-        helperText={formik.touched.email && formik.errors.email}
-      />
-      <Button
-        type='submit'
-        variant='contained'
-        color='primary'
-        disabled={!!formik.errors.email}
-        style={{ marginTop: '1rem' }}
+    <Box sx={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
+      <Card
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+          maxWidth: '600px',
+          width: '100%',
+          p: 4,
+          margin: '0 auto',
+          color: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
       >
-        {isLoading ? <CircularProgress size={20} /> : 'Reset password'}
-      </Button>
+        <Box
+          component='form'
+          onSubmit={formik.handleSubmit}
+          noValidate
+          sx={{ mt: 3, width: '100%' }}
+        >
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
+            Reset password
+          </Typography>
+          <TextField
+            sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+              },
+              '& fieldset': {
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
+            margin='normal'
+            required
+            fullWidth
+            id='email'
+            label='Email Address'
+            autoComplete='email'
+            {...formik.getFieldProps('email')}
+            error={formik.touched.email && formik.errors.email ? true : false}
+            helperText={formik.touched.email && formik.errors.email}
+          />
+          <Box sx={{ mt: 3, textAlign: 'end' }}>
+            <Button type='submit' variant='outlined' color='secondary' sx={{ mr: 2 }}>
+              test
+            </Button>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              disabled={!!formik.errors.email}
+            >
+              {isLoading ? <CircularProgress size={20} /> : 'Reset password'}
+            </Button>
+          </Box>
+        </Box>
+      </Card>
     </Box>
   );
 };

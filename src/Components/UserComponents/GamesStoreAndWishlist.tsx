@@ -69,22 +69,42 @@ const GamesStoreAndWishlist = ({ isWishlist, gamesData }: GamesStoreAndWishlistP
   return (
     <Container>
       <TextField
+        fullWidth
         label='Search'
         variant='outlined'
         value={searchTerm}
         onChange={handleSearchChange}
-        style={{ marginBottom: '1rem' }}
+        sx={{
+          '& input': {
+            backgroundColor: 'transparent',
+          },
+          '& fieldset': {
+            borderColor: 'white',
+            backgroundColor: 'transparent',
+          },
+        }}
+        InputLabelProps={{
+          style: {
+            color: 'white',
+          },
+        }}
+        inputProps={{
+          style: {
+            color: 'white',
+            borderColor: 'white',
+          },
+        }}
       />
-      <Box>
-        <Grid container={false}>
+      <Box sx={{ mt: 4 }}>
+        <Grid container columnGap={2} rowGap={2} sx={{ height: '80vh', justifyContent: 'center' }}>
           {paginatedItems?.map((item) => (
-            <Grid item xs={12} sm={6} md={4} key={item.title}>
+            <Grid item sm={12} md={5.5} lg={3.5} key={item.title}>
               <Card>
                 <CardActionArea onClick={() => handleItemClick(item)}>
                   <CardMedia
                     component='img'
                     alt={item.title}
-                    height='200'
+                    height='500'
                     image={item.screenshots[1]}
                   />
                   <CardContent>
@@ -112,16 +132,16 @@ const GamesStoreAndWishlist = ({ isWishlist, gamesData }: GamesStoreAndWishlistP
       </Box>
       <Box style={{ marginTop: '1rem', textAlign: 'center' }}>
         <Button
-          variant='outlined'
-          color='primary'
+          variant='contained'
+          color='success'
           disabled={currentPage === 1}
           onClick={() => handlePageChange(currentPage - 1)}
         >
           Back
         </Button>
         <Button
-          variant='outlined'
-          color='primary'
+          variant='contained'
+          color='success'
           disabled={currentPage === totalPages}
           onClick={() => handlePageChange(currentPage + 1)}
           style={{ marginLeft: '1rem' }}

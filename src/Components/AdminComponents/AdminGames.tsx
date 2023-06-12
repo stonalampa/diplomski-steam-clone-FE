@@ -1,7 +1,7 @@
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { DataGrid, GridCallbackDetails, GridRowSelectionModel } from '@mui/x-data-grid';
-import { Button, Container, Grid } from '@mui/material';
+import { Box, Button, Card, Container, Grid } from '@mui/material';
 import {
   useCreateGameMutation,
   useDeleteGameMutation,
@@ -69,13 +69,14 @@ export default function AdminGames() {
     setIsLoadingButton(true);
     let msg = '';
     let result: IObject;
-    data.screenshots = data.screenshots.split(',');
     try {
       if (isAdd) {
         msg = 'ADD';
+        data.screenshots = data.screenshots.split(',');
         result = await createGame(data);
       } else if (isEdit) {
         msg = 'UPDATE';
+        data.screenshots = data.screenshots.split(',');
         result = await updateGame(data);
       } else {
         msg = 'DELETE';
@@ -115,19 +116,55 @@ export default function AdminGames() {
 
   return (
     { isLoading } && (
-      <Container>
-        <Grid>
-          <Grid item>
-            <Button onClick={handleOpenAddNewDialog}>Add new game</Button>
-            <Button disabled={!selectedRow} onClick={handleOpenEditDialog}>
-              Edit game
+      <Box sx={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
+        <Card
+          sx={{
+            backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+            maxWidth: '2000px',
+            width: '100%',
+            overflow: 'scroll',
+            p: 4,
+            margin: '0 auto',
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Box sx={{ mb: 4, alignSelf: 'flex-end', p: 2 }}>
+            <Button variant='contained' color='success' onClick={handleOpenAddNewDialog}>
+              Add new user
             </Button>
-            <Button disabled={!selectedRow} onClick={handleOpenDeleteDialog}>
-              Delete game
+            <Button
+              variant='contained'
+              color='info'
+              disabled={!selectedRow}
+              onClick={handleOpenEditDialog}
+              sx={{ ml: 2 }}
+            >
+              Edit user
             </Button>
-          </Grid>
-          <Grid item>
+            <Button
+              variant='contained'
+              color='error'
+              disabled={!selectedRow}
+              onClick={handleOpenDeleteDialog}
+              sx={{ ml: 2 }}
+            >
+              Delete user
+            </Button>
+          </Box>
+          <Box sx={{ backgroundColor: 'rgba(265, 265, 265, 0.1)' }}>
             <DataGrid
+              sx={{
+                color: 'white',
+                '& .MuiTablePagination-toolbar ': {
+                  color: 'white',
+                },
+                '& .MuiDataGrid-row.Mui-selected': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+                },
+              }}
               initialState={{
                 pagination: { paginationModel: { pageSize: 10 } },
               }}
@@ -140,18 +177,18 @@ export default function AdminGames() {
               rowSelectionModel={selectedRow ? [selectedRow.ID] : []}
               onRowSelectionModelChange={handleSelectionChange}
             />
-          </Grid>
-        </Grid>
-        <GamesModal
-          open={open}
-          isAdd={isAdd}
-          isEdit={isEdit}
-          handleClose={handleClose}
-          submit={handleSubmit}
-          isLoading={isLoadingButton}
-          rowData={selectedRow || {}}
-        ></GamesModal>
-      </Container>
+          </Box>
+          <GamesModal
+            open={open}
+            isAdd={isAdd}
+            isEdit={isEdit}
+            handleClose={handleClose}
+            submit={handleSubmit}
+            isLoading={isLoadingButton}
+            rowData={selectedRow || {}}
+          ></GamesModal>
+        </Card>
+      </Box>
     )
   );
 }
