@@ -27,7 +27,7 @@ const PopupModal = ({ text, open, timeout, type, onClose }: PopupModalProps) => 
     case PopupModalType.Buy:
       typographyElement = (
         <Typography variant='h6' component='div'>
-          Success: {text}
+          Thank you for buying {text}!
         </Typography>
       );
       closeButtonElement = (
@@ -68,7 +68,10 @@ const PopupModal = ({ text, open, timeout, type, onClose }: PopupModalProps) => 
     <Modal open={open} onClose={onClose} component={ModalContainer}>
       <ModalContent>
         {typographyElement}
-        <CircularProgress size={20} />
+        {type === PopupModalType.Download ? (
+          <CircularProgress size={20} sx={{ mb: 1, mt: 1 }} />
+        ) : null}
+        <div></div>
         {closeButtonElement}
       </ModalContent>
     </Modal>

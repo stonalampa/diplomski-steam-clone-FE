@@ -19,7 +19,12 @@ import { GamesStoreAndWishlistProps } from './UserTypes';
 
 const itemsPerPage = 3;
 
-const GamesStoreAndWishlist = ({ isWishlist, gamesData }: GamesStoreAndWishlistProps) => {
+const GamesStoreAndWishlist = ({
+  isWishlist,
+  gamesData,
+  refetchLibrary,
+  refetchGames,
+}: GamesStoreAndWishlistProps) => {
   const wishlist = useSelector(wishlistState);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -155,6 +160,8 @@ const GamesStoreAndWishlist = ({ isWishlist, gamesData }: GamesStoreAndWishlistP
         handleClose={() => {
           setIsOpen(false);
         }}
+        refetchLibrary={refetchLibrary}
+        refetchGames={refetchGames}
       />
     </Container>
   );

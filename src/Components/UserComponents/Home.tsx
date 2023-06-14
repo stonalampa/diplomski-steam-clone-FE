@@ -37,8 +37,8 @@ const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const id = useSelector(userId) as string;
   const { data } = useGetUserDataQuery(id);
-  const { data: gamesData } = useGetAllGamesQuery();
-  const { data: userLibrary } = useGetLibraryDataQuery(id);
+  const { data: gamesData, refetch: refetchGames } = useGetAllGamesQuery();
+  const { data: userLibrary, refetch: refetchLibrary } = useGetLibraryDataQuery(id);
   const [libraryGames, setLibraryGams] = useState<IObject[]>([]);
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleTabChange = (event: React.SyntheticEvent<Element, Event>, newValue: number) => {
@@ -58,8 +58,8 @@ const Home = () => {
   }, [userLibrary]);
 
   useEffect(() => {
+    console.log('PROMENA GAMES');
     if (userLibrary?.ID && gamesData && gamesData.length > 0) {
-      console.log(gamesData, userLibrary);
       setLibraryGams(gamesData?.filter((game) => userLibrary?.gameIds?.includes(game.ID)) || []);
     }
   }, [userLibrary, gamesData]);
@@ -75,10 +75,20 @@ const Home = () => {
         </Tabs>
         <Box p={2}>
           {selectedTab === 0 && (
-            <GamesStoreAndWishlist isWishlist={false} gamesData={gamesData ?? []} />
+            <GamesStoreAndWishlist
+              isWishlist={false}
+              gamesData={gamesData ?? []}
+              refetchLibrary={refetchLibrary}
+              refetchGames={refetchGames}
+            />
           )}
           {selectedTab === 1 && (
-            <GamesStoreAndWishlist isWishlist={true} gamesData={gamesData ?? []} />
+            <GamesStoreAndWishlist
+              isWishlist={true}
+              gamesData={gamesData ?? []}
+              refetchLibrary={refetchLibrary}
+              refetchGames={refetchGames}
+            />
           )}
           {selectedTab === 2 && <Library libraryGames={libraryGames} />}
           {selectedTab === 3 && <UserProfile />}

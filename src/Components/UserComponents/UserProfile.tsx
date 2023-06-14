@@ -157,9 +157,9 @@ export default function UserProfile() {
               },
               '& .Mui-disabled': {
                 WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
+
                 '& .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'white',
-                  color: 'white',
                 },
               },
             }}
@@ -224,9 +224,9 @@ export default function UserProfile() {
               },
               '& .Mui-disabled': {
                 WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
+
                 '& .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'white',
-                  color: 'white',
                 },
               },
             }}
@@ -334,9 +334,6 @@ export default function UserProfile() {
                 '& .MuiInputLabel-root': {
                   color: 'white',
                 },
-                '& .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'white',
-                },
                 '& .MuiInput-underline:before': {
                   borderBottomColor: 'white',
                 },
@@ -351,7 +348,6 @@ export default function UserProfile() {
                   WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
                   '& .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'white',
-                    color: 'white',
                   },
                 },
               }}

@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   CardMedia,
+  CircularProgress,
   Dialog,
   DialogContent,
   Divider,
@@ -15,10 +16,13 @@ import { useEffect, useRef, useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import YouTube from 'react-youtube';
 import CloseIcon from '@mui/icons-material/Close';
-import { IObject } from '../Common/CommonTypes';
+import { PopupModalType } from '../Common/CommonTypes';
 import { useSelector } from 'react-redux';
 import { libraryState, userState, wishlistState } from '../../store/user/selectors/userSelector';
 import { useAddGameToLibraryMutation } from '../../providers/LibraryProvider';
+import { useSnackbar } from 'notistack';
+import PopupModal from '../Common/PopupModal';
+import { GameModalProps } from './UserTypes';
 
 const ModalContentWrapper = styled(Box)(() => ({
   maxHeight: 900,
@@ -48,15 +52,8 @@ const videoOpts = {
   },
 };
 
-const GameModal = ({
-  isOpen,
-  game,
-  handleClose,
-}: {
-  isOpen: boolean;
-  game?: IObject;
-  handleClose: () => void;
-}) => {
+const GameModal = ({ isOpen, game, handleClose, refetchLibrary, refetchGames }: GameModalProps) => {
+  const { enqueueSnackbar } = useSnackbar();
   const playerRef = useRef<HTMLIFrameElement | null>(null);
   const [addGameToLibrary] = useAddGameToLibraryMutation();
   const [slideIndex, setSlideIndex] = useState<number>(0);
@@ -67,6 +64,9 @@ const GameModal = ({
   const [images, setImages] = useState<Array<string>>([]);
   const [owned, setOwned] = useState<boolean>(false);
   const [inWishlist, setInWishlist] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const user = useSelector(userState);
   const userLibrary = useSelector(libraryState);
   const userWishlist = useSelector(wishlistState);
@@ -84,7 +84,7 @@ const GameModal = ({
       setOwned(userLibrary?.includes(game?.ID));
       setInWishlist(userWishlist.includes(game?.ID) ?? false);
     }
-  }, [game]);
+  }, [game, userLibrary, userWishlist]);
 
   const handleSlideChange = (newIndex?: number, oldIndex?: number) => {
     if (newIndex === images.length - 1 && oldIndex === 0) {
@@ -97,7 +97,7 @@ const GameModal = ({
   };
 
   const handleBuyingAndWishlist = async (isWishlist: boolean, remove: boolean) => {
-    console.log(isWishlist, remove, 'OVDE JE BUY');
+    setIsLoading(true);
     const response = await addGameToLibrary({
       body: {
         ID: user?.libraryId,
@@ -109,11 +109,15 @@ const GameModal = ({
       remove,
     });
     if ('error' in response) {
-      // error snackbar
+      enqueueSnackbar('Failed to update', { variant: 'error' });
     } else {
-      //true
-      // neka iskoci popup i kaze thank you for buying
-      // email sent to your address
+      await Promise.all([refetchLibrary(), refetchGames()]);
+      enqueueSnackbar('Success', { variant: 'success' });
+      if (!isWishlist) {
+        setIsOpenModal(true);
+        setSelectedItem(game?.title);
+      }
+      setIsLoading(false);
     }
   };
 
@@ -153,7 +157,7 @@ const GameModal = ({
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
           <Box>
             <Button onClick={handleClose} color='error' variant='outlined'>
-              Close
+              {isLoading ? <CircularProgress size={20} /> : 'Close'}
             </Button>
           </Box>
           <Box>
@@ -162,7 +166,13 @@ const GameModal = ({
               disabled={owned}
               color={inWishlist ? 'error' : 'success'}
             >
-              {inWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+              {isLoading ? (
+                <CircularProgress size={20} />
+              ) : inWishlist ? (
+                'Remove from wishlist'
+              ) : (
+                'Add to wishlist'
+              )}
             </Button>
             <Button
               disabled={owned}
@@ -170,7 +180,7 @@ const GameModal = ({
               variant='contained'
               color='success'
             >
-              {owned ? 'Owned' : 'Buy'}
+              {isLoading ? <CircularProgress size={20} /> : owned ? 'Owned' : 'Buy'}
             </Button>
           </Box>
         </Box>
@@ -279,6 +289,13 @@ const GameModal = ({
             />
           </DialogContent>
         </Dialog>
+        <PopupModal
+          text={selectedItem}
+          open={isOpenModal}
+          onClose={() => setIsOpenModal(false)}
+          timeout={5000}
+          type={PopupModalType.Buy}
+        ></PopupModal>
       </ModalContentWrapper>
     </Modal>
   ) : null;
