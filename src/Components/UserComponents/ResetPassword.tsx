@@ -91,13 +91,13 @@ const ResetPassword = () => {
             helperText={formik.touched.email && formik.errors.email}
           />
           <Box sx={{ mt: 3, textAlign: 'end' }}>
-            <Button type='submit' variant='outlined' color='secondary' sx={{ mr: 2 }}>
-              test
+            <Button href={'/login'} variant='contained' color='primary' sx={{ mr: 2 }}>
+              {isLoading ? <CircularProgress size={20} /> : 'Back'}
             </Button>
             <Button
               type='submit'
               variant='contained'
-              color='primary'
+              color='secondary'
               disabled={!!formik.errors.email}
             >
               {isLoading ? <CircularProgress size={20} /> : 'Reset password'}

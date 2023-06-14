@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogContent,
   Divider,
-  Grid,
   IconButton,
   Modal,
   Typography,
@@ -145,7 +144,6 @@ const GameModal = ({
     <Modal open={isOpen} sx={{ display: 'flex', justifyContent: 'center' }}>
       <ModalContentWrapper
         sx={{
-          backgroundColor: 'white',
           boxShadow: 24,
           padding: '2rem',
           width: '80%',

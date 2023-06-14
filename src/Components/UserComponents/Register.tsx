@@ -10,8 +10,6 @@ import {
   Box,
   Button,
   CircularProgress,
-  Container,
-  Grid,
   IconButton,
   InputAdornment,
   TextField,
@@ -75,143 +73,320 @@ export default function Register() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Container>
-        <Box component='form' onSubmit={formik.handleSubmit} noValidate sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography variant='h4' align='center'>
-                Register
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label='Email'
-                fullWidth
-                margin='normal'
-                required
-                id='email'
-                autoComplete='email'
-                {...formik.getFieldProps('email')}
-                error={formik.touched.email && formik.errors.email ? true : false}
-                helperText={formik.touched.email && formik.errors.email}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label='Username'
-                fullWidth
-                margin='normal'
-                required
-                id='username'
-                autoComplete='username'
-                {...formik.getFieldProps('username')}
-                error={formik.touched.username && formik.errors.username ? true : false}
-                helperText={formik.touched.username && formik.errors.username}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label='Password'
-                fullWidth
-                margin='normal'
-                required
-                id='password'
-                autoComplete='password'
-                type={showPassword ? 'text' : 'password'}
-                {...formik.getFieldProps('password')}
-                error={formik.touched.password && formik.errors.password ? true : false}
-                helperText={formik.touched.password && formik.errors.password}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end'>
-                      <IconButton
-                        onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
-                        edge='end'
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label='Confirm password'
-                fullWidth
-                margin='normal'
-                required
-                id='confirmPassword'
-                autoComplete='confirmPassword'
-                type={showConfirmPassword ? 'text' : 'password'}
-                {...formik.getFieldProps('confirmPassword')}
-                error={
-                  formik.touched.confirmPassword && formik.errors.confirmPassword ? true : false
-                }
-                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end'>
-                      <IconButton
-                        onClick={() =>
-                          setShowConfirmPassword((prevShowPassword) => !prevShowPassword)
-                        }
-                        edge='end'
-                      >
-                        {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <DatePicker
-                label='Date of birth'
-                value={formik.values.dateOfBirth ? dayjs(formik.values.dateOfBirth) : null}
-                onChange={(date) => formik.setFieldValue('dateOfBirth', date?.toISOString() ?? '')}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label='Full name'
-                fullWidth
-                margin='normal'
-                required
-                id='fullName'
-                autoComplete='fullName'
-                {...formik.getFieldProps('fullName')}
-                error={formik.touched.fullName && formik.errors.fullName ? true : false}
-                helperText={formik.touched.fullName && formik.errors.fullName}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label='Card number'
-                fullWidth
-                margin='normal'
-                required
-                id='cardNumber'
-                autoComplete='cardNumber'
-                {...formik.getFieldProps('cardNumber')}
-                error={formik.touched.cardNumber && formik.errors.cardNumber ? true : false}
-                helperText={formik.touched.cardNumber && formik.errors.cardNumber}
-              />
-            </Grid>
-            <Grid item xs={6}>
+      <Box
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}
+      >
+        <Box
+          sx={{
+            backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+            maxWidth: '800px',
+            width: '100%',
+            p: 4,
+            margin: '0 auto',
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Box
+            component='form'
+            onSubmit={formik.handleSubmit}
+            noValidate
+            sx={{
+              mt: 3,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            <Typography variant='h4' align='center' sx={{ mb: 3 }}>
+              Register
+            </Typography>
+            <TextField
+              label='Email'
+              fullWidth
+              required
+              id='email'
+              autoComplete='email'
+              {...formik.getFieldProps('email')}
+              error={formik.touched.email && formik.errors.email ? true : false}
+              helperText={formik.touched.email && formik.errors.email}
+              sx={{
+                mb: 2,
+                '& input': {
+                  backgroundColor: 'transparent',
+                },
+                '& fieldset': {
+                  borderColor: 'white',
+                  backgroundColor: 'transparent',
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: 'white',
+                },
+              }}
+              inputProps={{
+                style: {
+                  color: 'white',
+                  borderColor: 'white',
+                },
+              }}
+            />
+            <TextField
+              label='Username'
+              fullWidth
+              required
+              id='username'
+              autoComplete='username'
+              {...formik.getFieldProps('username')}
+              error={formik.touched.username && formik.errors.username ? true : false}
+              helperText={formik.touched.username && formik.errors.username}
+              sx={{
+                mb: 2,
+                '& input': {
+                  backgroundColor: 'transparent',
+                },
+                '& fieldset': {
+                  borderColor: 'white',
+                  backgroundColor: 'transparent',
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: 'white',
+                },
+              }}
+              inputProps={{
+                style: {
+                  color: 'white',
+                  borderColor: 'white',
+                },
+              }}
+            />
+            <TextField
+              label='Password'
+              fullWidth
+              required
+              id='password'
+              autoComplete='password'
+              type={showPassword ? 'text' : 'password'}
+              {...formik.getFieldProps('password')}
+              error={formik.touched.password && formik.errors.password ? true : false}
+              helperText={formik.touched.password && formik.errors.password}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton
+                      onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
+                      edge='end'
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                mb: 2,
+                '& input': {
+                  backgroundColor: 'transparent',
+                },
+                '& fieldset': {
+                  borderColor: 'white',
+                  backgroundColor: 'transparent',
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: 'white',
+                },
+              }}
+              inputProps={{
+                style: {
+                  color: 'white',
+                  borderColor: 'white',
+                },
+              }}
+            />
+            <TextField
+              label='Confirm password'
+              fullWidth
+              required
+              id='confirmPassword'
+              autoComplete='confirmPassword'
+              type={showConfirmPassword ? 'text' : 'password'}
+              {...formik.getFieldProps('confirmPassword')}
+              error={formik.touched.confirmPassword && formik.errors.confirmPassword ? true : false}
+              helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton
+                      onClick={() =>
+                        setShowConfirmPassword((prevShowPassword) => !prevShowPassword)
+                      }
+                      edge='end'
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                mb: 2,
+                '& input': {
+                  backgroundColor: 'transparent',
+                },
+                '& fieldset': {
+                  borderColor: 'white',
+                  backgroundColor: 'transparent',
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: 'white',
+                },
+              }}
+              inputProps={{
+                style: {
+                  color: 'white',
+                  borderColor: 'white',
+                },
+              }}
+            />
+            <DatePicker
+              label='Date of birth'
+              value={formik.values.dateOfBirth ? dayjs(formik.values.dateOfBirth) : null}
+              onChange={(date) => formik.setFieldValue('dateOfBirth', date?.toISOString() ?? '')}
+              sx={{
+                mb: 2,
+                width: '100%',
+                '& .MuiInputBase-root': {
+                  color: 'white',
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'white',
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                },
+                '& .MuiInput-underline:before': {
+                  borderBottomColor: 'white',
+                },
+                '& .MuiPickersDay-daySelected': {
+                  backgroundColor: 'white',
+                  color: 'black',
+                },
+                '& .MuiIconButton-root': {
+                  color: 'white',
+                },
+              }}
+            />
+            <TextField
+              label='Full name'
+              fullWidth
+              required
+              id='fullName'
+              autoComplete='fullName'
+              {...formik.getFieldProps('fullName')}
+              error={formik.touched.fullName && formik.errors.fullName ? true : false}
+              helperText={formik.touched.fullName && formik.errors.fullName}
+              sx={{
+                mb: 2,
+                '& input': {
+                  backgroundColor: 'transparent',
+                },
+                '& fieldset': {
+                  borderColor: 'white',
+                  backgroundColor: 'transparent',
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: 'white',
+                },
+              }}
+              inputProps={{
+                style: {
+                  color: 'white',
+                  borderColor: 'white',
+                },
+              }}
+            />
+            <TextField
+              label='Card number'
+              fullWidth
+              required
+              id='cardNumber'
+              autoComplete='cardNumber'
+              {...formik.getFieldProps('cardNumber')}
+              error={formik.touched.cardNumber && formik.errors.cardNumber ? true : false}
+              helperText={formik.touched.cardNumber && formik.errors.cardNumber}
+              sx={{
+                mb: 2,
+                '& input': {
+                  backgroundColor: 'transparent',
+                },
+                '& fieldset': {
+                  borderColor: 'white',
+                  backgroundColor: 'transparent',
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: 'white',
+                },
+              }}
+              inputProps={{
+                style: {
+                  color: 'white',
+                  borderColor: 'white',
+                },
+              }}
+            />
+            <Box
+              sx={{
+                width: '90%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-evenly',
+              }}
+            >
               <DatePicker
                 label='Expiration date'
                 value={formik.values.expirationDate ? dayjs(formik.values.expirationDate) : null}
                 onChange={(date) =>
                   formik.setFieldValue('expirationDate', date?.toISOString() ?? '')
                 }
+                sx={{
+                  maxWidth: '330px',
+                  width: '100%',
+                  '& .MuiInputBase-root': {
+                    color: 'white',
+                  },
+                  '& .MuiInputLabel-root': {
+                    color: 'white',
+                  },
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white',
+                  },
+                  '& .MuiInput-underline:before': {
+                    borderBottomColor: 'white',
+                  },
+                  '& .MuiPickersDay-daySelected': {
+                    backgroundColor: 'white',
+                    color: 'black',
+                  },
+                  '& .MuiIconButton-root': {
+                    color: 'white',
+                  },
+                }}
               />
-            </Grid>
-            <Grid item xs={6}>
               <TextField
                 label='CVC'
                 fullWidth
-                margin='normal'
                 type='number'
                 required
                 id='cvc'
@@ -219,15 +394,59 @@ export default function Register() {
                 {...formik.getFieldProps('cvc')}
                 error={formik.touched.cvc && formik.errors.cvc ? true : false}
                 helperText={formik.touched.cvc && formik.errors.cvc}
+                sx={{
+                  maxWidth: '330px',
+                  width: '100%',
+                  '& input': {
+                    backgroundColor: 'transparent',
+                  },
+                  '& fieldset': {
+                    borderColor: 'white',
+                    backgroundColor: 'transparent',
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    color: 'white',
+                  },
+                }}
+                inputProps={{
+                  style: {
+                    color: 'white',
+                    borderColor: 'white',
+                  },
+                }}
               />
-            </Grid>
-          </Grid>
-          <Button type='submit'>{isLoading ? <CircularProgress size={20} /> : 'Register'}</Button>
-          <Button href={'/home'}>
-            {isLoading ? <CircularProgress size={20} /> : 'Go to landing page'}
-          </Button>
+            </Box>
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-evenly',
+                mt: 3,
+              }}
+            >
+              <Button
+                type='submit'
+                variant='contained'
+                color='success'
+                sx={{ maxWidth: '250px', width: '100%' }}
+              >
+                {isLoading ? <CircularProgress size={20} /> : 'Register'}
+              </Button>
+              <Button
+                href={'/home'}
+                variant='outlined'
+                color='secondary'
+                sx={{ maxWidth: '250px', width: '100%' }}
+              >
+                {isLoading ? <CircularProgress size={20} /> : 'Go to landing page'}
+              </Button>
+            </Box>
+          </Box>
         </Box>
-      </Container>
+      </Box>
     </LocalizationProvider>
   );
 }

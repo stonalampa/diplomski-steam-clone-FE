@@ -7,9 +7,7 @@ import { useSnackbar } from 'notistack';
 import {
   Box,
   Button,
-  Card,
   CircularProgress,
-  Container,
   IconButton,
   InputAdornment,
   TextField,
@@ -71,35 +69,32 @@ export default function UserProfile() {
   });
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
-      <Card
+    <Box
+      sx={{
+        backgroundColor: 'rgba(0, 0, 0, 0.5) ',
+        maxWidth: '800px',
+        width: '100%',
+        p: 4,
+        margin: '0 auto',
+        color: 'white',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <Box
         sx={{
-          backgroundColor: 'white',
-          boxShadow: 24,
-          padding: '2rem',
+          mt: 3,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           width: '100%',
         }}
       >
         <Typography id='modal-modal-title' variant='h6' component='h2'>
           User profile
         </Typography>
-        {!isEditing ? (
-          <Button variant='outlined' color='primary' onClick={handleIsEditing}>
-            Edit
-          </Button>
-        ) : (
-          <Button
-            variant='outlined'
-            color='primary'
-            onClick={() => {
-              handleIsEditing();
-              formik.resetForm();
-            }}
-            disabled={isLoading}
-          >
-            Cancel
-          </Button>
-        )}
+
         <Box component='form' onSubmit={formik.handleSubmit} noValidate sx={{ mt: 3 }}>
           <TextField
             margin='normal'
@@ -115,6 +110,12 @@ export default function UserProfile() {
               '& fieldset': {
                 borderColor: 'white',
                 backgroundColor: 'transparent',
+              },
+              '& .Mui-disabled': {
+                WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                },
               },
             }}
             InputLabelProps={{
@@ -146,8 +147,20 @@ export default function UserProfile() {
             helperText={formik.touched.password && formik.errors.password}
             disabled={!isEditing}
             sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+                color: 'white',
+              },
               '& fieldset': {
                 borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+              '& .Mui-disabled': {
+                WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                  color: 'white',
+                },
               },
             }}
             InputLabelProps={{
@@ -200,6 +213,34 @@ export default function UserProfile() {
                 </InputAdornment>
               ),
             }}
+            sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+                color: 'white',
+              },
+              '& fieldset': {
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+              '& .Mui-disabled': {
+                WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                  color: 'white',
+                },
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
           />
           <TextField
             margin='normal'
@@ -212,6 +253,32 @@ export default function UserProfile() {
             error={formik.touched.email && formik.errors.email ? true : false}
             helperText={formik.touched.email && formik.errors.email}
             disabled={!isEditing}
+            sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+              },
+              '& fieldset': {
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+              '& .Mui-disabled': {
+                WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                },
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
           />
           <TextField
             margin='normal'
@@ -224,6 +291,33 @@ export default function UserProfile() {
             error={formik.touched.name && formik.errors.name ? true : false}
             helperText={formik.touched.name && formik.errors.name}
             disabled={!isEditing}
+            sx={{
+              '& input': {
+                backgroundColor: 'transparent',
+                color: 'white',
+              },
+              '& fieldset': {
+                borderColor: 'white',
+                backgroundColor: 'transparent',
+              },
+              '& .Mui-disabled': {
+                WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                },
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: 'white',
+              },
+            }}
+            inputProps={{
+              style: {
+                color: 'white',
+                borderColor: 'white',
+              },
+            }}
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
@@ -231,13 +325,90 @@ export default function UserProfile() {
               value={formik.values.dateOfBirth ? dayjs(formik.values.dateOfBirth) : null}
               onChange={(date) => formik.setFieldValue('dateOfBirth', date?.toISOString() ?? '')}
               disabled={!isEditing}
+              sx={{
+                width: '100%',
+                mt: 2,
+                '& .MuiInputBase-root': {
+                  color: 'white',
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'white',
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white',
+                },
+                '& .MuiInput-underline:before': {
+                  borderBottomColor: 'white',
+                },
+                '& .MuiPickersDay-daySelected': {
+                  backgroundColor: 'white',
+                  color: 'black',
+                },
+                '& .MuiIconButton-root': {
+                  color: 'white',
+                },
+                '& .Mui-disabled': {
+                  WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white',
+                    color: 'white',
+                  },
+                },
+              }}
             />
           </LocalizationProvider>
-          <Button variant='contained' color='primary' type='submit' disabled={!isEditing}>
-            {isLoading ? <CircularProgress size={20} /> : 'Save'}
-          </Button>
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+              mt: 3,
+            }}
+          >
+            {!isEditing ? (
+              <Button
+                variant='contained'
+                color='info'
+                onClick={handleIsEditing}
+                sx={{ maxWidth: '250px', width: '100%' }}
+              >
+                Edit
+              </Button>
+            ) : (
+              <Button
+                variant='outlined'
+                color='info'
+                onClick={() => {
+                  handleIsEditing();
+                  formik.resetForm();
+                }}
+                disabled={isLoading}
+                sx={{ maxWidth: '250px', width: '100%' }}
+              >
+                Cancel
+              </Button>
+            )}
+            <Button
+              variant='contained'
+              color='success'
+              type='submit'
+              disabled={!isEditing}
+              sx={{
+                maxWidth: '250px',
+                width: '100%',
+                '&.Mui-disabled': {
+                  WebkitTextFillColor: 'rgba(255, 255, 255, 0.5)',
+                  color: 'white',
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                },
+              }}
+            >
+              {isLoading ? <CircularProgress size={20} /> : 'Save'}
+            </Button>
+          </Box>
         </Box>
-      </Card>
+      </Box>
     </Box>
   );
 }

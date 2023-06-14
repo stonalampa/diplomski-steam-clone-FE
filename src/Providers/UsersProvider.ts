@@ -32,7 +32,7 @@ export const adminUsersApi = createApi({
         return response.users;
       },
     }),
-    createUser: builder.mutation<any, IObject>({
+    createUser: builder.mutation<IObject, IObject>({
       query: (user) => {
         return {
           url: '/users',
@@ -41,7 +41,7 @@ export const adminUsersApi = createApi({
         };
       },
     }),
-    updateUser: builder.mutation<any, IObject>({
+    updateUser: builder.mutation<IObject, IObject>({
       query: (user) => {
         return {
           url: `/users/${user.id}`,
@@ -50,7 +50,7 @@ export const adminUsersApi = createApi({
         };
       },
     }),
-    deleteUser: builder.mutation<any, IObject>({
+    deleteUser: builder.mutation<string, IObject>({
       query: (id) => {
         return {
           url: `/users/${id}`,
@@ -69,7 +69,7 @@ export const usersApi = createApi({
   }),
   tagTypes: ['Users'],
   endpoints: (builder) => ({
-    registerUser: builder.mutation<any, IObject>({
+    registerUser: builder.mutation<IObject, IObject>({
       query: (user) => {
         return {
           url: '/users',
@@ -98,7 +98,7 @@ export const usersApi = createApi({
         },
       }),
     }),
-    updateUserProfile: builder.mutation<any, IObject>({
+    updateUserProfile: builder.mutation<IObject, IObject>({
       query: (user) => {
         return {
           url: `/users/${user.id}`,

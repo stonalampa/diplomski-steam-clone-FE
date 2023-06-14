@@ -32,7 +32,7 @@ export const adminGamesApi = createApi({
         return response.games;
       },
     }),
-    createGame: builder.mutation<any, IObject>({
+    createGame: builder.mutation<IObject, IObject>({
       query: (game) => {
         return {
           url: '/games',
@@ -41,7 +41,7 @@ export const adminGamesApi = createApi({
         };
       },
     }),
-    updateGame: builder.mutation<any, IObject>({
+    updateGame: builder.mutation<IObject, IObject>({
       query: (game) => {
         return {
           url: `/games/${game.id}`,
@@ -50,7 +50,7 @@ export const adminGamesApi = createApi({
         };
       },
     }),
-    deleteGame: builder.mutation<any, IObject>({
+    deleteGame: builder.mutation<string, IObject>({
       query: (id) => {
         return {
           url: `/games/${id}`,

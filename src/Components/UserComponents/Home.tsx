@@ -8,7 +8,6 @@ import { setUserState, setLibraryAndWishlist } from '../../store/user/slices/use
 import { userId } from '../../store/authentication/selectors/authenticationSelector';
 import { dispatch } from '../../store/store';
 import { useGetLibraryDataQuery } from '../../providers/LibraryProvider';
-import Wishlist from './Wishlist';
 import UserProfile from './UserProfile';
 import Library from './Library';
 import GamesStoreAndWishlist from './GamesStoreAndWishlist';

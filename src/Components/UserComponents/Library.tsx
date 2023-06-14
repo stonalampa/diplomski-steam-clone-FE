@@ -24,7 +24,7 @@ const Library = ({ libraryGames }: { libraryGames: Array<IObject> }) => {
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <List sx={{ width: '100%', maxWidth: 700 }}>
         {libraryGames.map((item, index) => (
-          <Card sx={{ backgroundColor: 'rgba(265,265,265, 0.6)', mb: 2 }}>
+          <Card sx={{ backgroundColor: 'rgba(265,265,265, 0.6)', mb: 2 }} key={index}>
             <ListItem key={index}>
               <ListItemAvatar>
                 <Avatar alt={item.title} src={item.screenshots[1]} />
