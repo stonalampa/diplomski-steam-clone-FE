@@ -1,10 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BackendApiUrl } from '../helpers/BackendApi';
 import { IObject } from '../components/Common/CommonTypes';
-
-type ResponseT = {
-  users: IObject[];
-};
+import { ResponseUsersT } from './ProvidersTypes';
 
 export const ADMIN_USERS_API_REDUCER_KEY = 'adminUsersApi';
 export const adminUsersApi = createApi({
@@ -28,7 +25,7 @@ export const adminUsersApi = createApi({
           method: 'GET',
         };
       },
-      transformResponse: (response: ResponseT) => {
+      transformResponse: (response: ResponseUsersT) => {
         return response.users;
       },
     }),

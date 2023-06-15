@@ -11,8 +11,9 @@ import {
   Box,
   TextField,
 } from '@mui/material';
-import { IObject } from '../Common/CommonTypes';
+
 import GameModal from './GameModal';
+import { IObject } from '../Common/CommonTypes';
 import { wishlistState } from '../../store/user/selectors/userSelector';
 import { useSelector } from 'react-redux';
 import { GamesStoreAndWishlistProps } from './UserTypes';

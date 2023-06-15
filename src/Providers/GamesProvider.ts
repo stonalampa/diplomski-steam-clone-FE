@@ -1,10 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BackendApiUrl } from '../helpers/BackendApi';
 import { IObject } from '../components/Common/CommonTypes';
-
-type ResponseT = {
-  games: IObject[];
-};
+import { ResponseGamesT } from './ProvidersTypes';
 
 export const ADMIN_GAMES_API_REDUCER_KEY = 'adminGamesApi';
 export const adminGamesApi = createApi({
@@ -28,7 +25,7 @@ export const adminGamesApi = createApi({
           method: 'GET',
         };
       },
-      transformResponse: (response: ResponseT) => {
+      transformResponse: (response: ResponseGamesT) => {
         return response.games;
       },
     }),
@@ -76,7 +73,7 @@ export const gamesApi = createApi({
           method: 'GET',
         };
       },
-      transformResponse: (response: ResponseT) => {
+      transformResponse: (response: ResponseGamesT) => {
         return response.games;
       },
     }),

@@ -13,16 +13,17 @@ import {
   styled,
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { useSelector } from 'react-redux';
 import Carousel from 'react-material-ui-carousel';
 import YouTube from 'react-youtube';
 import CloseIcon from '@mui/icons-material/Close';
+
 import { PopupModalType } from '../Common/CommonTypes';
-import { useSelector } from 'react-redux';
 import { libraryState, userState, wishlistState } from '../../store/user/selectors/userSelector';
 import { useAddGameToLibraryMutation } from '../../providers/LibraryProvider';
-import { useSnackbar } from 'notistack';
-import PopupModal from '../Common/PopupModal';
 import { GameModalProps } from './UserTypes';
+import PopupModal from '../Common/PopupModal';
 
 const ModalContentWrapper = styled(Box)(() => ({
   maxHeight: 900,

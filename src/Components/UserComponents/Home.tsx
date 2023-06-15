@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 import { Box, Tab, Tabs } from '@mui/material';
 import { styled } from '@mui/system';
 
+import UserProfile from './UserProfile';
+import Library from './Library';
+import GamesStoreAndWishlist from './GamesStoreAndWishlist';
 import { useGetUserDataQuery } from '../../providers/UsersProvider';
 import { setUserState, setLibraryAndWishlist } from '../../store/user/slices/user';
 import { userId } from '../../store/authentication/selectors/authenticationSelector';
 import { dispatch } from '../../store/store';
 import { useGetLibraryDataQuery } from '../../providers/LibraryProvider';
-import UserProfile from './UserProfile';
-import Library from './Library';
-import GamesStoreAndWishlist from './GamesStoreAndWishlist';
 import { useGetAllGamesQuery } from '../../providers/GamesProvider';
 import { IObject } from '../Common/CommonTypes';
 
@@ -58,7 +58,6 @@ const Home = () => {
   }, [userLibrary]);
 
   useEffect(() => {
-    console.log('PROMENA GAMES');
     if (userLibrary?.ID && gamesData && gamesData.length > 0) {
       setLibraryGams(gamesData?.filter((game) => userLibrary?.gameIds?.includes(game.ID)) || []);
     }

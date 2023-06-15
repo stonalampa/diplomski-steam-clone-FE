@@ -4,13 +4,14 @@ import {
   useDispatch as useAppDispatch,
   useSelector as useAppSelector,
 } from 'react-redux';
-import commonReducers from './commonReducers';
-import { commonMiddlewareApi } from './commonMiddlewareApi';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
+
+import { commonMiddlewareApi } from './commonMiddlewareApi';
 import { adminMiddlewareApi } from './adminMiddlewareApi';
-import adminReducers from './adminReducers';
 import { usersMiddlewareApi } from './usersMiddlewareApi';
+import commonReducers from './commonReducers';
+import adminReducers from './adminReducers';
 import userReducers from './userReducers';
 
 export type AppDispatch = typeof store.dispatch;
